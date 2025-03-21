@@ -1,3 +1,7 @@
+import os
+import httpx
+import tempfile
+
 def solver_1(command: str):
     return '''Version:          Code 1.96.2 (fabdb6a30b49f79a7aba0f2ad9df9b399473380f, 2024-12-19T10:22:47.216Z)
 OS Version:       Darwin arm64 24.2.0
@@ -45,7 +49,7 @@ def solver_2(url: str, param: str, value: str):
     result = subprocess.run(cmd, capture_output=True, text=True)
 
     # Print the JSON output
-    return f'''{result.stdout}'''
+    return f'''{json.dumps(json.loads(result.stdout), indent=2)}'''
 
 
 def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, command: str):
@@ -66,3 +70,106 @@ def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, c
 
     # Print the output of the command
     return f'''{result.stdout[:-4]}'''
+
+def solver_4(formula: str):
+    import os
+    import httpx
+    import tempfile
+    import subprocess
+    try:
+        api_key = os.getenv('AIPROXY_TOKEN')
+        response = httpx.post("http://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+                            headers={
+                                "Authorization": f"Bearer {api_key}",
+                                    "Content-Type": "application/json",
+                                
+                            }, 
+                            json={
+                                "model": "gpt-4o-mini",
+                                    "messages": [
+                
+                {"role": "system", "content": "You are given a Google Sheets formula. Generate a code only in python using only built-in libraries that will achieve the same result such that it prints only the answer of the formula. Give the code only without any markdown in plain text but maintain indentation"},
+                {"role": "user", "content": f"{formula}"},
+            ]
+        })
+
+        python_script = response.json()["choices"][0]["message"]["content"]
+        print(python_script)
+        temp_dir = tempfile.mkdtemp()
+        with open(f"{temp_dir}/temp_script.py", 'w') as temp_script:
+            temp_script.write(str(python_script))
+
+        os.chmod(f"{temp_dir}/temp_script.py", 0o755)
+
+
+        result = subprocess.run(["python3", f"{temp_dir}/temp_script.py"], capture_output=True, text=True)
+        os.remove(f"{temp_dir}/temp_script.py")
+        os.removedirs(temp_dir)
+        return result.stdout[:-1]
+    
+    except Exception as e:
+        return {"message": "task execution failed", "status_code": 500}
+    
+def solver_5(formula: str):
+    import os
+    import httpx
+    import tempfile
+    import subprocess
+    try:
+        api_key = os.getenv('AIPROXY_TOKEN')
+        response = httpx.post("http://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+                            headers={
+                                "Authorization": f"Bearer {api_key}",
+                                    "Content-Type": "application/json",
+                                
+                            }, 
+                            json={
+                                "model": "gpt-4o-mini",
+                                    "messages": [
+                
+                {"role": "system", "content": "You are given a Microsoft Excel formula. Generate a code only in python using only built-in libraries that will achieve the same result such that it prints only the answer of the excel formula. Give the code only without any markdown in plain text but maintain indentation"},
+                {"role": "user", "content": f"{formula}"},
+            ]
+        })
+
+        python_script = response.json()["choices"][0]["message"]["content"]
+        print(python_script)
+        temp_dir = tempfile.mkdtemp()
+        with open(f"{temp_dir}/temp_script.py", 'w') as temp_script:
+            temp_script.write(str(python_script))
+
+        os.chmod(f"{temp_dir}/temp_script.py", 0o755)
+
+
+        result = subprocess.run(["python3", f"{temp_dir}/temp_script.py"], capture_output=True, text=True)
+        os.remove(f"{temp_dir}/temp_script.py")
+        os.removedirs(temp_dir)
+        return result.stdout[:-1]
+    
+    except Exception as e:
+        return {"message": "task execution failed", "status_code": 500}
+    
+def solver_6(html_element: str):
+    try:
+        api_key = os.getenv('AIPROXY_TOKEN')
+        response = httpx.post("http://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+                            headers={
+                                "Authorization": f"Bearer {api_key}",
+                                    "Content-Type": "application/json",
+                                
+                            }, 
+                            json={
+                                "model": "gpt-4o-mini",
+                                    "messages": [
+                
+                {"role": "system", "content": "You are given an HTML element. Return the value of the hidden input in the HTML element. Only the value nothing else in plain text."},
+                {"role": "user", "content": f"{html_element}"},
+            ]
+        })
+        hidden_value = response.json()["choices"][0]["message"]["content"]
+        return hidden_value
+    except Exception as e:
+        return {"message": "task execution failed", "status_code": 500}
+
+
+

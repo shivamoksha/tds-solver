@@ -94,7 +94,7 @@ def extract_parameters(matched_ques_id, question):
 
 
 @app.post("/api")
-async def api(question: Annotated[str, Form()], file: UploadFile = File(...)):
+async def api(question: Annotated[str, Form()], file: UploadFile | None = None):
     if file:
         temp_dir = tempfile.mkdtemp()
         file_path = os.path.join(temp_dir, file.filename)
@@ -115,7 +115,8 @@ async def api(question: Annotated[str, Form()], file: UploadFile = File(...)):
         params["file_name"] = file.filename
         params["temp_dir"] = temp_dir
     answer = solver(**params)
-    os.remove(file_path)
+    if file:
+        os.remove(file_path)
     return {"answer": answer}
 
 

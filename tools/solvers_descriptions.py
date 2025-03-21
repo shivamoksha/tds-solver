@@ -76,4 +76,70 @@ solvers_descriptions = {
             "strict": True
         }
     },
+
+    4: {
+        "type": "function",
+        "function": {
+            "name": "solver_4",
+            "description": "Converts a Google Sheets formula to a Python code and returns the result",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "formula": {
+                        "type": "string",
+                        "description": "the Google Sheets formula"
+                    },
+                    
+
+                },
+                "required": ["formula"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    5: {
+        "type": "function",
+        "function": {
+            "name": "solver_5",
+            "description": "Converts a Microsoft excel_formula to a Python code and returns the result",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "excel_formula": {
+                        "type": "string",
+                        "description": "the Microsoft Excel formula"
+                    },
+                    
+
+                },
+                "required": ["excel_formula"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    6: {
+        "type": "function",
+        "function": {
+            "name": "solver_6",
+            "description": "Extracts the value from a hidden input",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "html_element": {
+                        "type": "string",
+                        "description": "the HTML element"
+                    },
+                    
+
+                },
+                "required": ["html_element"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
 }

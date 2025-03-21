@@ -8,5 +8,21 @@ What is the JSON output of the command? (Paste only the JSON body, not the heade
 
     3: '''Let's make sure you know how to use npx and prettier.
 Download the attached file . In the directory where you downloaded it, make sure it is called {req_filename}, and run {command}
-What is the output of the command?'''
+What is the output of the command?''',
+    
+    4: '''
+Let's make sure you can write formulas in Google Sheets. Type this formula into Google Sheets.
+{formula}
+What is the result?''',
+
+    5: '''
+    Let's make sure you can write formulas in Microsoft Excel. Type this formula into Microsoft Excel.
+Note: This will ONLY work in Office 365.
+{excel_formula}
+What is the result?''',
+
+    6: '''{html_element}
+Just above this paragraph, there's a hidden input with a secret value.
+What is the value in the hidden input?''',
+
 }

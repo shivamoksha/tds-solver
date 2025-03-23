@@ -55,5 +55,15 @@ Enter the raw Github URL of email.json so we can verify it. (It might look like 
 What does running {command} in that folder show in bash?''',
 
     15: '''Download  and extract it. Use ls with options to list all files in the folder along with their date and file size.
-What's the total size of all files at least {file_size_number} bytes large and modified on or after {date_string}?'''
+What's the total size of all files at least {file_size_number} bytes large and modified on or after {date_string}?''',
+
+    16: '''Download  and extract it. Use mv to move all files under folders into an empty folder. Then rename all files replacing each digit with the next. 1 becomes 2, 9 becomes 0, a1b9c.txt becomes a2b0c.txt.
+What does running {command} in bash on that folder show?''',
+
+    17: '''Download  and extract it. It has 2 nearly identical files, {file_1} and {file_2}, with the same number of lines.
+How many lines are different between {file_1} and {file_2}?''',
+
+    18: '''There is a tickets table in a SQLite database that has columns type, units, and price. Each row is a customer bid for a concert ticket.
+{ticket_table}
+What is the total sales of all the items in the {ticket_type} ticket type? Write SQL to calculate it.'''
 }

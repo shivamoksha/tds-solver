@@ -415,6 +415,76 @@ solvers_descriptions = {
             },
             "strict": True
         }
+    },
+
+    16: {
+        "type": "function",
+        "function": {
+            "name": "solver_16",
+            "description": "Moves all files under folders into an empty folder. Then renames all files replacing each digit with the next. 1 becomes 2, 9 becomes 0, a1b9c.txt becomes a2b0c.txt. Then execute the given command {command}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "command": {
+                        "type": "string",
+                        "description": "the command to be run"
+                    }
+                    
+
+                },
+                "required": ["command"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    17: {
+        "type": "function",
+        "function": {
+            "name": "solver_17",
+            "description": "Counts the number of lines that are different between {file_1} and {file_2}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file_1": {
+                        "type": "string",
+                        "description": "the name of the first file"
+                    },
+                    "file_2": {
+                        "type": "string",
+                        "description": "the name of the second file"
+                    }
+                    
+
+                },
+                "required": ["file_1", "file_2"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    18: {
+        "type": "function",
+        "function": {
+            "name": "solver_18",
+            "description": "Calculates total sales of all the items in the {ticket_type} ticket type. For that the ticket_type parameter is required.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ticket_type": {
+                        "type": "string",
+                        "description": "the string containing the type of ticket"
+                    }
+                    
+
+                },
+                "required": ["ticket_type"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
     }
 
 }

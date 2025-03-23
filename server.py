@@ -73,7 +73,7 @@ def extract_parameters(matched_ques_id, question):
                     }
                     ],
                 "tools": tools,
-                "tool_choice": "auto",
+                "tool_choice": "required",
             },
         )
         raw_res = response.json()

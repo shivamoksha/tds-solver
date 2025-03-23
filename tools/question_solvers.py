@@ -493,3 +493,86 @@ def solver_15(temp_dir: str, file_path: str, file_name: str, file_size_number: s
     total_size = calculate_filtered_files_size(new_temp, file_size_number, date_string)
     return f'''{total_size}'''
 
+def solver_16(temp_dir: str, file_path: str, file_name: str, command: str):
+    import os
+    import re
+    import subprocess
+    import shlex
+    import tempfile
+    import zipfile
+
+    new_temp = tempfile.mkdtemp()
+    with zipfile.ZipFile(file_path, 'r') as zip_ref:
+        zip_ref.extractall(new_temp)
+
+    def move_files_to_final(directory):
+        final_dir = os.path.join(directory, "final")
+        os.makedirs(final_dir, exist_ok=True)
+        
+        for root, _, files in os.walk(directory):
+            if root == final_dir:
+                continue
+            for filename in files:
+                file_path = os.path.join(root, filename)
+                if os.path.isfile(file_path):
+                    new_path = os.path.join(final_dir, filename)
+                    os.rename(file_path, new_path)
+        return final_dir
+
+    final_dir = move_files_to_final(new_temp)
+
+    
+    def rename_files(directory):
+        # Define a mapping for digit replacement
+        digit_map = str.maketrans("0123456789", "1234567890")
+        
+        # Walk through all files in the directory
+        for root, _, files in os.walk(directory):
+            for filename in files:
+                # Construct the full path to the file
+                file_path = os.path.join(root, filename)
+                
+                # Skip directories
+                if not os.path.isfile(file_path):
+                    continue
+                
+                # Replace digits in the filename
+                new_filename = re.sub(r'\d', lambda m: m.group(0).translate(digit_map), filename)
+                
+                # Construct the new full path
+                new_file_path = os.path.join(root, new_filename)
+                
+                # Rename the file
+                os.rename(file_path, new_file_path)
+    
+    rename_files(final_dir)
+
+    # Run the provided command in the temp_dir
+    os.chdir(final_dir)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Get the output
+    stdout, stderr = process.communicate()
+
+    # Print the output
+    return f'''{stdout.decode('utf-8').strip()[:-3]}'''
+
+def solver_17(temp_dir: str, file_path: str, file_name: str, file_1: str, file_2: str):
+    import zipfile
+    with zipfile.ZipFile(file_path, 'r') as zip_ref:
+        zip_ref.extractall(temp_dir)
+    
+    file_1_path = os.path.join(temp_dir, file_1)
+    file_2_path = os.path.join(temp_dir, file_2)
+
+    with open(file_1_path, 'r') as f1, open(file_2_path, 'r') as f2:
+        file_1_lines = f1.readlines()
+        file_2_lines = f2.readlines()
+
+    diff_count = sum(1 for line1, line2 in zip(file_1_lines, file_2_lines) if line1 != line2)
+
+    return f'''{diff_count}'''
+
+def solver_18(ticket_type: str):
+    ticket_type = ticket_type.lower()
+    return f'''SELECT SUM(units*price) FROM tickets WHERE TRIM(LOWER(type)) = '{ticket_type}';'''

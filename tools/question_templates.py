@@ -65,5 +65,66 @@ How many lines are different between {file_1} and {file_2}?''',
 
     18: '''There is a tickets table in a SQLite database that has columns type, units, and price. Each row is a customer bid for a concert ticket.
 {ticket_table}
-What is the total sales of all the items in the {ticket_type} ticket type? Write SQL to calculate it.'''
+What is the total sales of all the items in the {ticket_type} ticket type? Write SQL to calculate it.''',
+
+    19: '''Write documentation in Markdown for an **imaginary** analysis of the number of steps you walked each day for a week, comparing over time and with friends. The Markdown must include:
+{markdown_requirements}
+''',
+
+    20: '''Download the image below and compress it losslessly to an image that is less than 1,500 bytes. By losslessly, we mean that every pixel in the new image should be identical to the original image.
+Upload your losslessly compressed image (less than 1,500 bytes)''',
+
+    21: '''Publish a page using GitHub Pages that showcases your work. Ensure that your email address {email_id} is in the page's HTML.
+GitHub pages are served via CloudFlare which obfuscates emails. So, wrap your email address inside a:
+<!--email_off-->{email_id}<!--/email_off-->
+What is the GitHub Pages URL? It might look like: https://[USER].github.io/[REPO]/''',
+
+    22: '''Let's make sure you can access Google Colab. Run this program on Google Colab, allowing all required access to your email ID: {email_id}.
+{python_code}
+What is the result? (It should be a 5-character string)''',
+
+    23: '''Download this image. Create a new Google Colab notebook and run this code (after fixing a mistake in it) to calculate the number of pixels with a certain minimum brightness:
+    {python_code}
+    What is the result? (It should be a number)''',
+
+    24: '''Download this  which has the marks of 100 imaginary students.
+Create and deploy a Python app to Vercel. Expose an API so that when a request like https://your-app.vercel.app/api?name=X&name=Y is made, it returns a JSON response with the marks of the names X and Y in the same order, like this:
+{ "marks": [10, 20] }
+Make sure you enable CORS to allow GET requests from any origin.
+What is the Vercel URL? It should look like: https://your-app.vercel.app/api''',
+
+    25: '''Create a GitHub action on one of your GitHub repositories. Make sure one of the steps in the action has a name that contains your email address {email}. For example:
+jobs:
+  test:
+    steps:
+      - name: {email}
+        run: echo "Hello, world!"
+Trigger the action and make sure it is the most recent action.
+What is your repository URL? It will look like: https://github.com/USER/REPO''',
+
+    26: '''Create and push an image to Docker Hub. Add a tag named {tag} to the image.
+What is the Docker image URL? It should look like: https://hub.docker.com/repository/docker/$USER/$REPO/general''',
+
+    27: '''''', #Do later
+    28: '''''', #Do later
+
+    29: '''One of the test cases involves sending a sample piece of meaningless text:
+{meaningless_text}
+Write a Python program that uses httpx to send a POST request to OpenAI's API to analyze the sentiment of this (meaningless) text into GOOD, BAD or NEUTRAL. Specifically:
+
+Make sure you pass an Authorization header with dummy API key.
+Use {model_name} as the model.
+The first message must be a system message asking the LLM to analyze the sentiment of the text. Make sure you mention GOOD, BAD, or NEUTRAL as the categories.
+The second message must be exactly the text contained above.
+This test is crucial for DataSentinel Inc. as it validates both the API integration and the correctness of message formatting in a controlled environment. Once verified, the same mechanism will be used to process genuine customer feedback, ensuring that the sentiment analysis module reliably categorizes data as GOOD, BAD, or NEUTRAL. This reliability is essential for maintaining high operational standards and swift response times in real-world applications.
+
+Note: This uses a dummy httpx library, not the real one. You can only use:
+
+response = httpx.get(url, **kwargs)
+response = httpx.post(url, json=None, **kwargs)
+response.raise_for_status()
+response.json()'''
+
+
+
 }

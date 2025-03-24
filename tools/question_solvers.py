@@ -576,3 +576,244 @@ def solver_17(temp_dir: str, file_path: str, file_name: str, file_1: str, file_2
 def solver_18(ticket_type: str):
     ticket_type = ticket_type.lower()
     return f'''SELECT SUM(units*price) FROM tickets WHERE TRIM(LOWER(type)) = '{ticket_type}';'''
+
+
+def solver_19():
+    return '''# Daily Walking Analysis
+## day-wise walking analysis done once a week
+
+*Total Steps:*
+
+| Sl No. | Person | Steps |
+|----------|----------|----------|
+| 1   | Pradeep   | **18000** |
+| 2   | Rakesh   | **16900** |
+
+Calculate Avg Daily Steps - `daily_steps`
+```python
+daily_steps = weekly_steps/7
+```
+know more about me -
+
+![Pradeep Mondal](https://avatars.githubusercontent.com/u/42373983?v=4)
+
+* [GitHub](https://github.com/pradeepmondal)
+* [LinkedIn](https://www.linkedin.com/in/impradeepmondal)
+
+Apart from walking, I do: 
+1. Coding
+2. Video Editing
+
+This is total steps
+>Total Steps'''
+
+def solver_20(temp_dir: str, file_path: str, file_name: str, quality: int = 10):
+    from pathlib import Path
+    from PIL import Image
+    import subprocess
+    import os
+    import io
+    import base64
+
+    output_path = os.path.join(temp_dir, 'compressed.png')
+
+    with Image.open(file_path) as img:
+        img.save(output_path, 'PNG', quality=quality, optimize=True)
+    
+    with open(output_path, 'rb') as f:
+        compressed_image = f.read()
+        compressed_image_base64 = base64.b64encode(compressed_image).decode('utf-8')
+    
+    return f'''{compressed_image_base64}'''
+
+def solver_21(email_id: str):
+    import tempfile
+    import os
+    import subprocess
+
+    temp_dir = tempfile.mkdtemp()
+    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
+    repo_dir = os.path.join(temp_dir, "repo")
+
+    # Clone the repository
+    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+
+    # Change to the repository directory
+    os.chdir(repo_dir)
+
+    value = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>TDS Project 2 Playground</title>
+
+</head>
+<body>
+    <div class="container">
+    <h1 class="center">Tools in <span style="color: red;">Data Science</span> </h1> 
+    
+    
+    <p class="para-text">This page is created exclusively for TDS Project 2</p>
+
+    Contact Me:<br/>
+    <!--email_off-->{email_id}<!--/email_off-->
+
+</div>
+    
+</body>
+</html>'''
+
+    # Create the file with the given value
+    with open('index.html', 'w') as file:
+        file.write(value)
+
+    # Add the file to the repository
+    subprocess.run(["git", "add", "index.html"], check=True)
+
+    # Commit the changes
+    subprocess.run(["git", "commit", "-m", "Added index.html"], check=True)
+
+    # Push the changes
+    subprocess.run(["git", "push"], check=True)
+
+    return f"https://pradeepmondal.github.io/tds-solver-playground/"
+
+
+def solver_22(email_id: str):
+    import hashlib
+    hash_code = hashlib.sha256(f"{email_id} 2025".encode()).hexdigest()[-5:]
+    return f'''{hash_code}'''
+
+
+def solver_23(temp_dir: str, file_path: str, file_name: str, lightness_threshold: float):
+    import numpy as np
+    from PIL import Image
+
+    import colorsys
+
+    # There is a mistake in the line below. Fix it
+    image = Image.open(file_path)
+
+    rgb = np.array(image) / 255.0
+    lightness = np.apply_along_axis(lambda x: colorsys.rgb_to_hls(*x)[1], 2, rgb)
+    light_pixels = np.sum(lightness > lightness_threshold)
+    
+
+    return f'''{light_pixels}'''
+
+
+def solver_24(temp_dir: str, file_path: str, file_name: str):
+    ### Have to implement this later
+    return f'''https://tds-deploy-assignments.vercel.app/api'''
+
+
+
+def solver_25(email: str):
+    import tempfile
+    import os
+    import subprocess
+
+    temp_dir = tempfile.mkdtemp()
+    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
+    repo_dir = os.path.join(temp_dir, "repo")
+
+    # Clone the repository
+    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+
+    # Change to the repository directory
+    os.chdir(repo_dir)
+    os.mkdir(".github")
+    os.chdir(".github")
+    os.mkdir("workflows")
+    os.chdir("workflows")
+
+    # Create the file with the given value
+    with open('test.yaml', 'w') as file:
+        workflow = f'''name: Test Action
+
+on: push
+
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: {email}
+        run: echo "Hello, world!"'''
+        file.write(workflow)
+
+
+    # Add the file to the repository
+    subprocess.run(["git", "add", "test.yaml"], check=True)
+
+    # Commit the changes
+    subprocess.run(["git", "commit", "-m", "Add test workflow"], check=True)
+
+    # Push the changes
+    subprocess.run(["git", "push"], check=True)
+
+    return f'''https://github.com/pradeepmondal/tds-solver-playground'''
+    
+
+
+def solver_26(tag: str): #### Need to check later ####
+    import tempfile
+    import os
+    import subprocess
+
+    temp_dir = tempfile.mkdtemp()
+    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
+    repo_dir = os.path.join(temp_dir, "repo")
+
+    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+
+    os.chdir(repo_dir)
+
+    with open('Dockerfile', 'w') as file:
+        dockerfile = f'''FROM python:3.9-slim
+
+
+WORKDIR /app
+
+
+COPY . /app
+
+
+EXPOSE 8080
+
+
+CMD ["python", "server.py"]'''
+        file.write(dockerfile)
+    
+    subprocess.run(["podman", "machine", "start"], check=True)
+    subprocess.run(["podman", "build", "-t", f"tds-solver-playground:{tag}", "."], check=True)
+    subprocess.run(["podman", "push", f"tds-solver-playground:{tag}"], check=True)
+
+    return f'''https://hub.docker.com/repository/docker/pradeepmondal/tds-solver-playground/general'''
+    
+
+def solver_27():
+    pass
+
+def solver_28():
+    pass
+
+def solver_29(meaningless_text: str, model_name: str):
+    from string import Template
+    str_temp = Template('''import httpx
+
+    response = httpx.post("https://api.openai.com/v1/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer hello_abc",
+                                "Content-Type": "application/json",
+                            
+                        }, 
+                        json={
+                            "model": "$model_name",
+                                "messages": [
+            {"role": "system", "content": "Analyze the sentiment of the given text into GOOD, BAD or NEUTRAL"},
+            {"role": "user", "content": "$meaningless_text"},
+        ]
+    })''')
+    return str_temp.substitute(meaningless_text=meaningless_text, model_name=model_name)

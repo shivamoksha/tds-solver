@@ -485,6 +485,200 @@ solvers_descriptions = {
             },
             "strict": True
         }
-    }
+    },
+
+    19: {
+        "type": "function",
+        "function": {
+            "name": "solver_19",
+            "description": "Writes documentation in Markdown for an imaginary analysis of the number of steps you walked each day for a week, comparing over time and with friends.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+            
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    20: {
+        "type": "function",
+        "function": {
+            "name": "solver_20",
+            "description": "Compresses the image losslessly to an image that is less than 1,500 bytes",
+            "parameters": {
+                "type": "object",
+                "properties": {
+            
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    21: {
+        "type": "function",
+        "function": {
+            "name": "solver_21",
+            "description": "Publishes a page using GitHub Pages that showcases your work. Ensures that your email address {email_id} is in the page's HTML.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "email_id": {
+                        "type": "string",
+                        "description": "the email ID"
+                    }
+                    
+
+                },
+                "required": ["email_id"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+
+    22: {
+        "type": "function",
+        "function": {
+            "name": "solver_22",
+            "description": "Runs the given program on Google Colab, allowing all required access to your email ID: {email_id}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "email_id": {
+                        "type": "string",
+                        "description": "the email ID"
+                    },
+
+                },
+                "required": ["email_id"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    23: {
+        "type": "function",
+        "function": {
+            "name": "solver_23",
+            "description": "Runs the given code on Google Colab to calculate the number of pixels with a certain minimum brightness",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "lightness_threshold": {
+                        "type": "number",
+                        "description": "the minimum brightness as described in the python code snippet"
+                    }
+            
+                },
+                "required": ["lightness_threshold"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    24: {
+        "type": "function",
+        "function": {
+            "name": "solver_24",
+            "description": "Calculates the average marks of all students in the class and deploy in vercel",
+            "parameters": {
+                "type": "object",
+                "properties": {
+            
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    25: {
+        "type": "function",
+        "function": {
+            "name": "solver_25",
+            "description": "Create a GitHub action on one of your GitHub repositories. Make sure one of the steps in the action has a name that contains your email address {email}.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "the email ID"
+                    }
+                    
+
+                },
+                "required": ["email"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    26: {
+        "type": "function",
+        "function": {
+            "name": "solver_26",
+            "description": "Create and push an image to Docker Hub. Add a tag named {tag} to the image.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string",
+                        "description": "the tag to be added"
+                    }
+                    
+
+                },
+                "required": ["tag"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    27: {},
+    28: {},
+
+    29: {
+        "type": "function",
+        "function": {
+            "name": "solver_29",
+            "description": "Analyze the sentiment of the given {meaningless_text} into GOOD, BAD or NEUTRAL using OpenAI's {model_name}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "model_name": {
+                        "type": "string",
+                        "description": "the model name"
+                    },
+                    "meaningless_text": {
+                        "type": "string",
+                        "description": "the meaningless text"
+                    }
+                    
+
+                },
+                "required": ["model_name", "meaningless_text"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+
+
+
+
 
 }

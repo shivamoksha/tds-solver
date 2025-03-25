@@ -741,6 +741,66 @@ solvers_descriptions = {
         }
     },
 
+    32: {
+        "type": "function",
+        "function": {
+            "name": "solver_32",
+            "description": "Extracts the required details as per the {text_instruction} from an image passed as base64 image to openai's API",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    33: {
+        "type": "function",
+        "function": {
+            "name": "solver_33",
+            "description": "Create embeddings of the two given verification messages {verification_message_1} and {verification_message_2} using OpenAI's API",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "verification_message_1": {
+                        "type": "string",
+                        "description": "the first verification message"
+                    },
+                    "verification_message_2": {
+                        "type": "string",
+                        "description": "the second verification message"
+                    }
+                    
+                },
+                "required": ["verification_message_1", "verification_message_2"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    34: {
+        "type": "function",
+        "function": {
+            "name": "solver_34",
+            "description": "Creates a Python function most_similar(embeddings) that will calculate the cosine similarity between each pair of these embeddings and return the pair that has the highest similarity.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+
+
 
 
 

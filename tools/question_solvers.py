@@ -899,4 +899,57 @@ def solver_31(required_fields: list, additionalPropertiesBoolean: bool):
     return f'''{str_temp.substitute(item_str=item_str, additionalProperties=additionalProperties)}'''
     
 
+def solver_32(temp_dir: str, file_path: str, file_name: str):
+    import base64
+    from string import Template
+
+    base64_image = base64.b64encode(open(file_path, "rb").read()).decode("utf-8")
     
+    str_tmp = Template('''{
+    "model": "gpt-4o-mini",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {"type": "text", "text": "Extract text from this image"},
+          {
+            "type": "image_url",
+            "image_url": { "url": "data:image/png;base64,$base64_image" }
+          }
+        ]
+      }
+    ]
+  }''')
+    
+    return f'''{str_tmp.substitute(base64_image=base64_image)}'''
+
+
+def solver_33(verification_message_1: str, verification_message_2: str):
+    from string import Template
+    str_temp = Template('''{"model": "text-embedding-3-small", "input": ["$verification_message_1", "$verification_message_2"]}''')
+    return f'''{str_temp.substitute(verification_message_1=verification_message_1, verification_message_2=verification_message_2)}'''
+
+def solver_34():
+    return '''import numpy as np
+
+def get_similarity(p1: str, p2: str) -> float:
+    
+    e1 = np.array(embeddings[p1])
+    e2 = np.array(embeddings[p2])
+    return float(np.dot(e1, e2) / (np.linalg.norm(e1) * np.linalg.norm(e2)))
+
+
+def most_similar(embeddings):
+    highest_similarity = 0
+    highest_sim_pair = (None , None)
+
+    for p in embeddings.keys():
+        for q in embeddings.keys():
+            if(p != q):
+                sim = get_similarity(p, q)
+                if(sim > highest_similarity):
+                    highest_similarity = sim
+                    highest_sim_pair = (p, q)
+
+    (phrase1, phrase2) = highest_sim_pair
+    return (phrase1, phrase2)'''

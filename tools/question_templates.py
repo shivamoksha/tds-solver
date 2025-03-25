@@ -138,7 +138,33 @@ Has a user message: Generate 10 random addresses in the US
 Uses structured outputs to respond with an object addresses which is an array of objects with required fields: {required_fields} .
 Sets additionalProperties to {additionalPropertiesBoolean} to prevent additional properties.
 Note that you don't need to run the request or use an API key; your task is simply to write the correct JSON body.
-What is the JSON body we should send to https://api.openai.com/v1/chat/completions for this? (No need to run it or to use an API key. Just write the body of the request below.)'''
+What is the JSON body we should send to https://api.openai.com/v1/chat/completions for this? (No need to run it or to use an API key. Just write the body of the request below.)''',
+
+    32: '''Your team is tasked with integrating OpenAI's vision model into the invoice processing workflow. The chosen model, gpt-4o-mini, is capable of analyzing both text and image inputs simultaneously. When an invoice is received—for example, an invoice image may contain a vendor email like alice.brown@acmeglobal.com and a transaction number such as 34921. The system needs to extract all embedded text to automatically populate the vendor management system.
+The automated process will send a POST request to OpenAI's API with two inputs in a single user message:
+Text: A simple instruction {text_instruction}
+Image URL: A base64 URL representing the invoice image that might include the email and the transaction number among other details.
+Here is an example invoice image:
+Write just the JSON body (not the URL, nor headers) for the POST request that sends these two pieces of content (text and image URL) to the OpenAI API endpoint.
+Use gpt-4o-mini as the model.
+Send a single user message to the model that has a text and an image_url content (in that order).
+The text content should be {text_instruction}
+Send the image_url as a base64 URL of the image above. CAREFUL: Do not modify the image.
+Write your JSON body here:''',
+
+    33: '''Imagine you are working on the SecurePay team as a junior developer tasked with integrating the text embeddings feature into the fraud detection module. When a user initiates a transaction, the system sends a personalized verification message to the user's registered email address. This message includes the user's email address and a unique transaction code (a randomly generated number). Here are 2 verification messages:
+{verification_message_1}
+{verification_message_2}
+The goal is to capture this message, convert it into a meaningful embedding using OpenAI's text-embedding-3-small model, and subsequently use the embedding in a machine learning model to detect anomalies.
+Your task is to write the JSON body for a POST request that will be sent to the OpenAI API endpoint to obtain the text embedding for the 2 given personalized transaction verification messages above. This will be sent to the endpoint https://api.openai.com/v1/embeddings.
+Write your JSON body here:''',
+
+    34: '''As part of a pilot project, ShopSmart has curated a collection of 25 feedback phrases that represent a variety of customer sentiments. Examples of these phrases include comments like “Fast shipping and great service,” “Product quality could be improved,” “Excellent packaging,” and so on. Due to limited processing capacity during initial testing, you have been tasked with determine which pair(s) of 5 of these phrases are most similar to each other. This similarity analysis will help in grouping similar feedback to enhance the company’s understanding of recurring customer issues.
+ShopSmart has written a Python program that has the 5 phrases and their embeddings as an array of floats. It looks like this:
+{embeddings}
+Your task is to write a Python function most_similar(embeddings) that will calculate the cosine similarity between each pair of these embeddings and return the pair that has the highest similarity. The result should be a tuple of the two phrases that are most similar.
+Write your Python code here:''',
+
 
 
 

@@ -3,6 +3,7 @@ import httpx
 import tempfile
 
 
+
 def solver_1(command: str):
     return '''Version:          Code 1.96.2 (fabdb6a30b49f79a7aba0f2ad9df9b399473380f, 2024-12-19T10:22:47.216Z)
 OS Version:       Darwin arm64 24.2.0
@@ -817,3 +818,85 @@ def solver_29(meaningless_text: str, model_name: str):
         ]
     })''')
     return str_temp.substitute(meaningless_text=meaningless_text, model_name=model_name)
+
+def solver_30(user_message: str):
+    try:
+        response = httpx.post(
+            "http://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {os.getenv('AIPROXY_TOKEN')}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": "gpt-4o-mini",
+                "messages": [
+                    {
+                        "role": "user", 
+                        "content": f"""{user_message}"""
+                    }
+                    ],
+            },
+        )
+        raw_res = response.json()
+        
+        return f'''{raw_res['usage']['prompt_tokens']}'''
+    except Exception as e:
+        return {"message": "task execution failed", "status_code": 500}
+    
+
+def solver_31(required_fields: list, additionalPropertiesBoolean: bool):
+    from string import Template
+    import json
+    str_temp =Template('''
+{
+  "model": "gpt-4o-mini",
+  "messages": [
+    { "role": "system", "content": "Respond in JSON" },
+    { "role": "user", "content": "Generate 10 random addresses in the US" }
+  ],
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "addresses",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "addresses": {
+            "type": "array",
+            "items": $item_str
+          }
+        },
+        "required": ["addresses"],
+        "additionalProperties": $additionalProperties
+      }
+    }
+  }
+}''')
+    req_item = []
+    for field in required_fields:
+        req_item.append(field['field_name'])
+    properties = {}
+    for field in required_fields:
+        properties[field['field_name']] = {"type": field['field_type']}
+    items = {
+        "type": "object",
+        "properties": properties,
+        "required": req_item,
+        "additionalProperties": False
+    }
+    item_str = f'''{json.dumps(items)}'''
+
+    
+    
+    
+    additionalProperties = ''
+    if additionalPropertiesBoolean:
+        additionalProperties = "true"
+    else:
+        additionalProperties = "false"
+
+    return f'''{str_temp.substitute(item_str=item_str, additionalProperties=additionalProperties)}'''
+    
+
+    

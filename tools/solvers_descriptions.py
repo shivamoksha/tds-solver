@@ -676,6 +676,74 @@ solvers_descriptions = {
         }
     },
 
+    30: {
+        "type": "function",
+        "function": {
+            "name": "solver_30",
+            "description": "Calulates the number of input tokens used by OpenAI's GPT-4o-Mini with just this user message: {user_message}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "user_message": {
+                        "type": "string",
+                        "description": "the user message given in the prompt for which the input tokens are to be calculated. It is the paragrapth after the sentence - 'Specifically, when you make a request to OpenAI's GPT-4o-Mini with just this user message:' in the prompt and before the sentence: '... how many input tokens does it use up?' in the prompt"
+                    }
+                    
+
+                },
+                "required": ["user_message"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    31: {
+        "type": "function",
+        "function": {
+            "name": "solver_31",
+            "description": "Writes the JSON body to send to https://api.openai.com/v1/chat/completions for a specific request with the {required_fields} and {additionalPropertiesBoolean}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "required_fields": {
+                    "type": "array",
+                    "description": "Array of the required fields",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                        "field_name": {
+                            "type": "string",
+                            "description": "Name of the field"
+                        },
+                        "field_type": {
+                            "type": "string",
+                            "description": "Type of the field",
+                            "enum": ["string", "number", "boolean", "date", "object"]
+                        }
+                        },
+                        "required": ["field_name", "field_type"],
+                        "additionalProperties": False
+                    }
+                    },
+              
+                    "additionalPropertiesBoolean": {
+                        "type": "boolean",
+                        "description": "the boolean value for additional properties"
+                    }
+                    
+
+                },
+                "required": ["required_fields", "additionalPropertiesBoolean"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+
+
+
 
 
 

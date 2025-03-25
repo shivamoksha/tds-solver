@@ -123,7 +123,22 @@ Note: This uses a dummy httpx library, not the real one. You can only use:
 response = httpx.get(url, **kwargs)
 response = httpx.post(url, json=None, **kwargs)
 response.raise_for_status()
-response.json()'''
+response.json()''',
+
+    30: '''To optimize operational costs and prevent unexpected API overages, the engineering team at LexiSolve has developed an internal diagnostic tool that simulates and measures token usage for typical prompts sent to the language model.
+One specific test case an understanding of text tokenization. Your task is to generate data for that test case.
+Specifically, when you make a request to OpenAI's GPT-4o-Mini with just this user message:
+{user_message}
+... how many input tokens does it use up?''',
+
+    31: '''As part of the integration process, you need to write the body of the request to an OpenAI chat completion call that:
+Uses model gpt-4o-mini
+Has a system message: Respond in JSON
+Has a user message: Generate 10 random addresses in the US
+Uses structured outputs to respond with an object addresses which is an array of objects with required fields: {required_fields} .
+Sets additionalProperties to {additionalPropertiesBoolean} to prevent additional properties.
+Note that you don't need to run the request or use an API key; your task is simply to write the correct JSON body.
+What is the JSON body we should send to https://api.openai.com/v1/chat/completions for this? (No need to run it or to use an API key. Just write the body of the request below.)'''
 
 
 

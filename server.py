@@ -9,6 +9,7 @@ import os
 from tools.question_templates import question_templates
 from tools.question_solvers import *
 from tools.solvers_descriptions import solvers_descriptions
+from specific_extractor_functions import extractors
 import re
 import numpy as np
 import json
@@ -54,7 +55,13 @@ def identify_question(problem_statement: str) -> Tuple[Optional[int], float]:
     
     return best_match_id, max_similarity
 
+
+
+
 def extract_parameters(matched_ques_id, question):
+    if matched_ques_id == 30:
+        arguments = {"user_message": extractors.extract_user_message(question)}
+        return arguments
     tools = [solvers_descriptions[matched_ques_id]]
     print(tools)
     try:

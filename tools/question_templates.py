@@ -105,8 +105,8 @@ What is your repository URL? It will look like: https://github.com/USER/REPO''',
     26: '''Create and push an image to Docker Hub. Add a tag named {tag} to the image.
 What is the Docker image URL? It should look like: https://hub.docker.com/repository/docker/$USER/$REPO/general''',
 
-    27: '''''', #Do later
-    28: '''''', #Do later
+    27: '''empty_question''', #Do later
+    28: '''empty_question''', #Do later
 
     29: '''One of the test cases involves sending a sample piece of meaningless text:
 {meaningless_text}

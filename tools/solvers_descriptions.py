@@ -799,6 +799,40 @@ solvers_descriptions = {
         }
     },
 
+    35: {
+        "type": "function",
+        "function": {
+            "name": "solver_35",
+            "description": "Calculates the cosine similarity between the query embedding and each document embedding.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    36: {
+        "type": "function",
+        "function": {
+            "name": "solver_36",
+            "description": "Implements function calling for the given functions",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
 
 
 

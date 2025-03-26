@@ -58,7 +58,7 @@ def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, c
     import subprocess
     import json
     import os
-
+    PWD = os.getcwd()
     os.chdir(f"{temp_dir}")
 
     # pre_cmd = ["mv", f"{file_name}", f"{req_filename}"]
@@ -69,7 +69,7 @@ def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, c
     # Run the command in the directory with the downloaded file
     cmd = [f"{command}"]
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-
+    os.chdir(PWD)
     # Print the output of the command
     return f'''{result.stdout[:-4]}'''
 
@@ -317,7 +317,7 @@ def solver_13(file_name: str, value: str):
 
     # Clone the repository
     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-
+    PWD = os.getcwd()
     # Change to the repository directory
     os.chdir(repo_dir)
 
@@ -333,7 +333,7 @@ def solver_13(file_name: str, value: str):
 
     # Push the changes
     subprocess.run(["git", "push"], check=True)
-
+    os.chdir(PWD)
     return f"https://raw.githubusercontent.com/pradeepmondal/tds-solver-playground/refs/heads/main/{file_name}"
 
 def solver_14(temp_dir: str, file_path: str, file_name: str, existing_word: str, new_word: str, command: str):
@@ -390,14 +390,14 @@ def solver_14(temp_dir: str, file_path: str, file_name: str, existing_word: str,
         print(f"\nSummary: Modified {files_modified} files with {replacements_made} total replacements")
     
     replace_in_all_files(new_temp, existing_word, new_word)
-
+    PWD = os.getcwd()
     # Run the provided command in the temp_dir
     os.chdir(new_temp)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     # Get the output
     stdout, stderr = process.communicate()
-
+    os.chdir(PWD)
     # Print the output
     return f'''{stdout.decode('utf-8').strip()[:-3]}'''
 
@@ -547,14 +547,14 @@ def solver_16(temp_dir: str, file_path: str, file_name: str, command: str):
                 os.rename(file_path, new_file_path)
     
     rename_files(final_dir)
-
+    PWD = os.getcwd()
     # Run the provided command in the temp_dir
     os.chdir(final_dir)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     # Get the output
     stdout, stderr = process.communicate()
-
+    os.chdir(PWD)
     # Print the output
     return f'''{stdout.decode('utf-8').strip()[:-3]}'''
 
@@ -638,7 +638,7 @@ def solver_21(email_id: str):
 
     # Clone the repository
     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-
+    PWD = os.getcwd()
     # Change to the repository directory
     os.chdir(repo_dir)
 
@@ -678,7 +678,7 @@ def solver_21(email_id: str):
 
     # Push the changes
     subprocess.run(["git", "push"], check=True)
-
+    os.chdir(PWD)
     return f"https://pradeepmondal.github.io/tds-solver-playground/"
 
 
@@ -722,7 +722,7 @@ def solver_25(email: str):
 
     # Clone the repository
     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-
+    PWD = os.getcwd()
     # Change to the repository directory
     os.chdir(repo_dir)
     os.mkdir(".github")
@@ -753,7 +753,7 @@ jobs:
 
     # Push the changes
     subprocess.run(["git", "push"], check=True)
-
+    os.chdir(PWD)
     return f'''https://github.com/pradeepmondal/tds-solver-playground'''
     
 
@@ -768,7 +768,7 @@ def solver_26(tag: str): #### Need to check later ####
     repo_dir = os.path.join(temp_dir, "repo")
 
     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-
+    PWD = os.getcwd()
     os.chdir(repo_dir)
 
     with open('Dockerfile', 'w') as file:
@@ -790,7 +790,7 @@ CMD ["python", "server.py"]'''
     subprocess.run(["podman", "machine", "start"], check=True)
     subprocess.run(["podman", "build", "-t", f"tds-solver-playground:{tag}", "."], check=True)
     subprocess.run(["podman", "push", f"tds-solver-playground:{tag}"], check=True)
-
+    os.chdir(PWD)
     return f'''https://hub.docker.com/repository/docker/pradeepmondal/tds-solver-playground/general'''
     
 
@@ -953,3 +953,28 @@ def most_similar(embeddings):
 
     (phrase1, phrase2) = highest_sim_pair
     return (phrase1, phrase2)'''
+
+def solver_35():
+    import subprocess
+    import os
+    import requests
+    PWD = os.getcwd()
+    os.chdir('server-utils')
+    subprocess.Popen(["nohup", "uvicorn", "solver_35:app", "--host", "0.0.0.0", "--port", "8000", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    response = requests.get("https://api.ipify.org?format=json")
+    public_ip = response.json()["ip"]
+    os.chdir(PWD)
+    return(f"{public_ip}:8000/similarity")
+
+def solver_36():
+    import subprocess
+    import os
+    import requests
+    PWD = os.getcwd()
+    os.chdir('server-utils')
+    subprocess.Popen(["nohup", "uvicorn", "solver_36:app", "--host", "0.0.0.0", "--port", "8001", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    response = requests.get("https://api.ipify.org?format=json")
+    public_ip = response.json()["ip"]
+    os.chdir(PWD)
+    return(f"{public_ip}:8001/execute")
+

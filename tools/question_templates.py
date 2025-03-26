@@ -165,6 +165,39 @@ ShopSmart has written a Python program that has the 5 phrases and their embeddin
 Your task is to write a Python function most_similar(embeddings) that will calculate the cosine similarity between each pair of these embeddings and return the pair that has the highest similarity. The result should be a tuple of the two phrases that are most similar.
 Write your Python code here:''',
 
+    35: '''Imagine you are an engineer on the InfoCore team. Your task is to build a FastAPI POST endpoint that accepts an array of docs and query string via a JSON body. The endpoint is structured as follows:
+{post_req_structure}
+Service Flow:
+Request Payload: The client sends a POST request with a JSON body containing:
+docs: An array of document texts from the internal knowledge base.
+query: A string representing the user's search query.
+Embedding Generation: For each document in the docs array and for the query string, the API computes a text embedding using text-embedding-3-small.
+Similarity Computation: The API then calculates the cosine similarity between the query embedding and each document embedding. This allows the service to determine which documents best match the intent of the query.
+Response Structure: After ranking the documents by their similarity scores, the API returns the identifiers (or positions) of the three most similar documents. The JSON response might look like this:
+{response_structure}
+Here, "Contents of document 3" is considered the closest match, followed by "Contents of document 1", then "Contents of document 2".
+Make sure you enable CORS to allow OPTIONS and POST methods, perhaps allowing all origins and headers.
+What is the API URL endpoint for your implementation? It might look like: http://127.0.0.1:8000/similarity''',
+
+    36: '''Each question is direct and templatized, containing one or more parameters such as an employee or ticket number (which might be randomized). In the backend, a FastAPI app routes each request by matching the query to one of a set of pre-defined functions. The response that the API returns is used by OpenAI to call the right function with the necessary arguments.
+Pre-Defined Functions:
+For this exercise, assume the following functions have been defined:
+{functions}
+Each function has a specific signature, and the student’s FastAPI app should map specific queries to these functions.
+Example Questions (Templatized with a Random Number):
+{example_questions}
+Develop a FastAPI application that:
+Exposes a GET endpoint /execute?q=... where the query parameter q contains one of the pre-templatized questions.
+Analyzes the q parameter to identify which function should be called.
+Extracts the parameters from the question text.
+Returns a response in the following JSON format:
+{response_format}
+Make sure you enable CORS to allow GET requests from any origin.
+What is the API URL endpoint for your implementation? It might look like: http://127.0.0.1:8000/execute''',
+
+
+
+
 
 
 

@@ -833,6 +833,53 @@ solvers_descriptions = {
         }
     },
 
+    37: {
+        "type": "function",
+        "function": {
+            "name": "solver_37",
+            "description": "Fetches the cricket data from the given {page_number} of ESPN Cricinfo's ODI batting stats",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "page_number": {
+                        "type": "string",
+                        "description": "the page number"
+                    }
+                    
+                },
+                "required": ["page_number"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    38: {
+        "type": "function",
+        "function": {
+            "name": "solver_38",
+            "description": "Fetches imdb data for the titles between rating {ratings_start} and {ratings_end}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ratings_start": {
+                        "type": "string",
+                        "description": "the start rating"
+                    },
+                    "ratings_end": {
+                        "type": "string",
+                        "description": "the end rating"
+                    }
+
+                    
+                },
+                "required": ["ratings_start", "ratings_end"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
 
 
 

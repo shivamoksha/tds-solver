@@ -978,3 +978,165 @@ def solver_36():
     os.chdir(PWD)
     return(f"{public_ip}:8001/execute")
 
+def solver_37(page_number: str):
+    import httpx
+    from bs4 import BeautifulSoup
+    import pandas as pd
+
+    def scrape_cricinfo_stats():
+        url = f"https://stats.espncricinfo.com/stats/engine/stats/index.html?class=2;page={page_number};template=results;type=batting"
+        
+        # Define headers with a user-agent
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            "Cache-Control": "max-age=0"
+        }
+        
+        # Send a GET request to the URL using httpx
+        with httpx.Client() as client:
+            response = client.get(url, headers=headers, follow_redirects=True)
+        
+        
+        # Parse the HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Find the table with class 'engineTable'
+        table = soup.find_all('table', class_='engineTable')
+        table = table[2]
+        # Check if table exists
+        if table is None:
+            print("Table not found. The page structure might have changed or access is restricted.")
+            return pd.DataFrame()
+        
+        # Extract table headers
+        headers = [th.text.strip() for th in table.find_all('th')]
+        
+        # Extract table rows
+        rows = []
+        for tr in table.find_all('tr')[1:]:  # Skip the header row
+            rows.append([td.text.strip() for td in tr.find_all('td')])
+        
+        print(headers)
+        # Create a pandas DataFrame
+        df = pd.DataFrame(rows, columns=headers)
+        
+        # Save the data to a CSV file
+        df.to_csv('espn_cricinfo_stats.csv', index=False)
+        
+        return df
+
+    def calculate_total_ducks(df):
+        # Check if DataFrame is empty
+        if df.empty:
+            return None
+            
+        # Assuming '0' column represents the number of ducks
+        if '0' in df.columns:
+            total_ducks = df['0'].astype(int).sum()
+            return total_ducks
+        else:
+            print("Column '0' not found in the data. Please check the column names.")
+            return None
+    
+    df = scrape_cricinfo_stats()
+    total_ducks = calculate_total_ducks(df)
+
+    return f'''{total_ducks}'''
+
+def solver_38(ratings_start: str, ratings_end: str):
+    import httpx
+    from bs4 import BeautifulSoup
+    import json
+    import re
+
+    def scrape_imdb_movies_with_rating_range():
+        # URL for IMDb advanced search with rating between 7 and 8
+        url = f"https://www.imdb.com/search/title/?user_rating={ratings_start},{ratings_end}&title_type=feature"
+
+        # Define headers with a user-agent to mimic a browser
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Referer": "https://www.imdb.com/",
+            "Connection": "keep-alive"
+        }
+
+        # Send a GET request to the URL
+        with httpx.Client(timeout=30.0) as client:
+            response = client.get(url, headers=headers, follow_redirects=True)
+
+        # Check if the request was successful
+        if response.status_code != 200:
+            print(f"Failed to retrieve data: Status code {response.status_code}")
+            return []
+
+        # Parse the HTML content
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find all movie items (limited to 25)
+        movie_items = soup.select('.ipc-metadata-list-summary-item')[:25]
+
+        movies_data = []
+
+        for item in movie_items:
+            try:
+                # Extract title and link
+                title_element = item.select_one('a.ipc-title-link-wrapper')
+                if not title_element:
+                    continue
+
+                title = title_element.text.strip()
+                link = title_element.get('href', '')
+
+                # Extract movie ID from the link
+                id_match = re.search(r'/title/(tt\d+)/', link)
+                movie_id = id_match.group(1) if id_match else ""
+
+                # Extract year - get the raw text from the first metadata item
+                year = ""
+                metadata_items = item.select('.dli-title-metadata-item')
+                if metadata_items and len(metadata_items) > 0:
+                    year = metadata_items[0].text.strip()
+
+                # Extract rating - get only the numeric value
+                rating_element = item.select_one('.ipc-rating-star--imdb')
+                rating = ""
+                if rating_element:
+                    rating_text = rating_element.text.strip()
+                    rating_match = re.search(r'([\d.]+)', rating_text)
+                    rating = rating_match.group(1) if rating_match else ""
+
+                # Add to movies data list
+                if movie_id and title:
+                    movies_data.append({
+                        "id": movie_id,
+                        "title": title,
+                        "year": year,
+                        "rating": rating
+                    })
+            except Exception as e:
+                print(f"Error processing movie item: {e}")
+                continue
+
+        return movies_data
+
+
+
+    movies_data = scrape_imdb_movies_with_rating_range()
+
+
+    # Print the JSON data
+    return f'''{json.dumps(movies_data, indent=2)}'''
+
+
+

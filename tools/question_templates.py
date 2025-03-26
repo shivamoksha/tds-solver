@@ -195,6 +195,22 @@ Returns a response in the following JSON format:
 Make sure you enable CORS to allow GET requests from any origin.
 What is the API URL endpoint for your implementation? It might look like: http://127.0.0.1:8000/execute''',
 
+    37: '''ESPN Cricinfo has ODI batting stats for each batsman. The result is paginated across multiple pages. Count the number of ducks in page number {page_number}.
+Understanding the Data Source: ESPN Cricinfo's ODI batting statistics are spread across multiple pages, each containing a table of player data. Go to page number {page_number}.
+Setting Up Google Sheets: Utilize Google Sheets' IMPORTHTML function to import table data from the URL for page number {page_number}.
+Data Extraction and Analysis: Pull the relevant table from the assigned page into Google Sheets. Locate the column that represents the number of ducks for each player. (It is titled "0".) Sum the values in the "0" column to determine the total number of ducks on that page.
+What is the total number of ducks across players on page number {page_number} of ESPN Cricinfo's ODI batting stats?
+''',
+
+    38: '''Source: Utilize IMDb's advanced web search at https://www.imdb.com/search/title/ to access movie data.
+Filter: Filter all titles with a rating between {ratings_start} and {ratings_start}.
+Format: For up to the first 25 titles, extract the necessary details: ID, title, year, and rating. The ID of the movie is the part of the URL after tt in the href attribute. For example, tt10078772. Organize the data into a JSON structure as follows:
+{json_structure}
+Submit: Submit the JSON data in the text box below.
+'''
+
+
+
 
 
 

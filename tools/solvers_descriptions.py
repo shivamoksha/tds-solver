@@ -880,6 +880,144 @@ solvers_descriptions = {
         }
     },
 
+    39: {
+        "type": "function",
+        "function": {
+            "name": "solver_39",
+            "description": "Scrape the wikipedia page for a given country, write all the headings <h1>, <h2>, ...., <h6> in a markdown file. Generate a Markdown-formatted outline that reflects the hierarchical structure of the content.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+ 
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    40: {
+        "type": "function",
+        "function": {
+            "name": "solver_40",
+            "description": "Finds the JSON weather forecst description for the {required_city}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "required_city": {
+                        "type": "string",
+                        "description": "the city for which the weather forecast is required"
+                    }
+                    
+                },
+                "required": ["required_city"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    41: {
+        "type": "function",
+        "function": {
+            "name": "solver_41",
+            "description": "Finds the {maximum_or_minimum} latitude of the bounding box of the city {city_name} in the country {country_name} on the Nominatim API. Returns the value of the {maximum_or_minimum} latitude",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "maximum_or_minimum": {
+                        "type": "string",
+                        "description": "either 'maximum' or 'minimum' string as per the prompt"
+                    },
+                    "city_name": {
+                        "type": "string",
+                        "description": "the city name"
+                    },
+                    "country_name": {
+                        "type": "string",
+                        "description": "the country name"
+                    }
+                    
+                },
+                "required": ["maximum_or_minimum", "city_name", "country_name"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    42: {
+        "type": "function",
+        "function": {
+            "name": "solver_42",
+            "description": "the link to the latest Hacker News post mentioning {mentioning_word} having at least {minimum_points} points",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "mentioning_word": {
+                        "type": "string",
+                        "description": "the word mentioned in the post"
+                    },
+                    "minimum_points": {
+                        "type": "number",
+                        "description": "the minimum points"
+                    }
+                    
+                },
+                "required": ["mentioning_word", "minimum_points"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    43: {
+        "type": "function",
+        "function": {
+            "name": "solver_43",
+            "description": "Finds the newest github user located in the city {city_name} with over {followers_count} followers",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "city_name": {
+                        "type": "string",
+                        "description": "the city name"
+                    },
+                    "followers_count": {
+                        "type": "number",
+                        "description": "the followers count"
+                    }
+                    
+                },
+                "required": ["city_name", "followers_count"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    44: {
+        "type": "function",
+        "function": {
+            "name": "solver_44",
+            "description": "Creates a GitHub action with that include a step with the {email}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "the email ID"
+                    }
+                    
+                },
+                "required": ["email"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
 
 
 

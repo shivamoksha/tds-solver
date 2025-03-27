@@ -725,9 +725,11 @@ def solver_25(email: str):
     PWD = os.getcwd()
     # Change to the repository directory
     os.chdir(repo_dir)
-    os.mkdir(".github")
+    if not os.path.exists(".github"):
+        os.mkdir(".github")
     os.chdir(".github")
-    os.mkdir("workflows")
+    if not os.path.exists("workflows"):
+        os.mkdir("workflows")
     os.chdir("workflows")
 
     # Create the file with the given value
@@ -1138,5 +1140,222 @@ def solver_38(ratings_start: str, ratings_end: str):
     # Print the JSON data
     return f'''{json.dumps(movies_data, indent=2)}'''
 
+def solver_39():
+    import subprocess
+    import os
+    import requests
+    PWD = os.getcwd()
+    os.chdir('server-utils')
+    subprocess.Popen(["nohup", "uvicorn", "solver_39:app", "--host", "0.0.0.0", "--port", "8002", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    response = requests.get("https://api.ipify.org?format=json")
+    public_ip = response.json()["ip"]
+    os.chdir(PWD)
+    return(f"{public_ip}:8002/scrape")
 
+def solver_40(required_city: str):
+    from bs4 import BeautifulSoup
+    import httpx
+    import json
+    from urllib.parse import urlencode
+
+    def scrape(city: str):
+        required_city = city
+        location_url = 'https://locator-service.api.bbci.co.uk/locations?' + urlencode({
+    'api_key': 'AGbFAKx58hyjQScCXIYrxuEwJh2W2cmv',
+    's': required_city,
+    'stack': 'aws',
+    'locale': 'en',
+    'filter': 'international',
+    'place-types': 'settlement,airport,district',
+    'order': 'importance',
+    'a': 'true',
+    'format': 'json'
+    })
+        result = httpx.get(location_url).json()
+        url      = 'https://www.bbc.com/weather/'+result['response']['results']['results'][0]['id']
+        print(url)
+        response = httpx.get(url)
+        
+        
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        report_json = soup.find('script', attrs={'data-state-id': 'forecast'})
+
+        
+        
+        report_json = json.loads(report_json.text)
+        data = report_json
+        weather_report = {}
+        forecasts = data['data']['forecasts']
+        for forecast in forecasts:
+            date = forecast['summary']['report']['localDate']
+            description = forecast['summary']['report']['enhancedWeatherDescription']
+            weather_report[date] = description
+
+        # Print the result in the requested format
+        return f'''{json.dumps(weather_report, indent=4)}'''
+    
+    return scrape(required_city)
+
+def solver_41(maximum_or_minimum: str, city_name: str, country_name: str):
+    import requests
+    from geopy.geocoders import Nominatim
+    
+    locator = Nominatim(user_agent="myGeocoder")
+
+    # type any address text
+    location = locator.geocode({
+        "city": city_name,
+        "country": country_name,
+    })
+
+    if maximum_or_minimum == "maximum":
+        return f'''{location.raw['boundingbox'][1]}'''
+    else:
+        return f'''{location.raw['boundingbox'][0]}'''
+    
+
+def solver_42(mentioning_word: str, minimum_points: int):
+    import httpx
+    from bs4 import BeautifulSoup
+    import re
+
+    response = httpx.get(f"https://hnrss.org/newest?q={mentioning_word}")
+    soup = BeautifulSoup(response.text, 'html.parser')
+    article_list = soup.find_all('item')
+
+    urls = []
+    for art in article_list:
+        soup2 = BeautifulSoup(art.text, 'html.parser')
+        p_tag = soup2.find('p', text=re.compile(r'Points: \d+'))
+        if p_tag:
+            # Extract the number using regex
+            match = re.search(r'Points: (\d+)', p_tag.text)
+            if match:
+                number = match.group(1)
+                if(int(number) > minimum_points):
+                    url = BeautifulSoup(art.text, 'html.parser').find('a')['href']
+                    urls.append(url)
+                    
+                    
+            else:
+                print("No number found in the text.")
+        else:
+            print("No <p> tag containing 'Points:' found.")
+
+    return f'''{urls[0]}'''
+
+def solver_43(city_name: str, followers_count: int):
+    import requests
+    from datetime import datetime
+
+
+    url = "https://api.github.com/search/users"
+    params = {"q": f"location:{city_name} followers:>{str(followers_count)}", "sort": "joined", "order": "desc", "per_page": 1}
+    
+    response = requests.get(url, params=params)
+    if response.status_code != 200:
+        print(f"Error: {response.status_code}, {response.text}")
+        return None
+    
+    data = response.json()
+    if not data["items"]:
+        print("No users found matching the criteria.")
+        return None
+    
+    newest_user = data["items"][0]
+    user_response = requests.get(newest_user["url"])
+    if user_response.status_code != 200:
+        print(f"Error fetching user details: {user_response.status_code}")
+        return None
+    
+    user_data = user_response.json()
+    return f'''{user_data["created_at"]}'''
+
+
+def solver_44(email: str):
+    import tempfile
+    import os
+    import subprocess
+
+    temp_dir = tempfile.mkdtemp()
+    repo_url = "https://github.com/pradeepmondal/tds-actions-test.git"
+    repo_dir = os.path.join(temp_dir, "repo")
+
+    # Clone the repository
+    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+    PWD = os.getcwd()
+    # Change to the repository directory
+    os.chdir(repo_dir)
+    if not os.path.exists(".github"):
+        os.mkdir(".github")
+    os.chdir(".github")
+    if not os.path.exists("workflows"):
+        os.mkdir("workflows")
+    os.chdir("workflows")
+
+
+    from datetime import datetime, timedelta
+
+    def get_cron_string_after_2_minutes():
+        # Get current time
+        current_time = datetime.now()
+        
+        # Add 2 minutes to the current time
+        new_time = current_time + timedelta(minutes=2)
+        
+        # Extract the minute and hour for the cron string
+        cron_minute = new_time.minute
+        cron_hour = new_time.hour
+        
+        # Return the cron string in the format: "minute hour * * *"
+        return f"{cron_minute} {cron_hour} * * *"
+
+    # Create the file with the given value
+    with open('daily.yaml', 'w') as file:
+        workflow = f'''name: Daily Commit Workflow
+
+on:
+  schedule:
+    # Run at 10:30 AM UTC every day
+    - cron: '{get_cron_string_after_2_minutes()}'
+  # Optional: Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  create-daily-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: {email}
+        run: |
+          git pull  
+          echo "Last updated: $(date)" > update.txt
+          
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "tds@dummy"
+          git config --local user.name "tds-solver"
+          git add update.txt  
+          git commit -m "Routine change done" || exit 0
+          git push'''
+        file.write(workflow)
+
+
+    # Add the file to the repository
+    subprocess.run(["git", "add", "daily.yaml"], check=True)
+
+    # Commit the changes
+    subprocess.run(["git", "commit", "-m", "Add daily workflow"], check=True)
+
+    # Push the changes
+    subprocess.run(["git", "push"], check=True)
+    os.chdir(PWD)
+    return f'''https://github.com/pradeepmondal/tds-actions-test'''
 

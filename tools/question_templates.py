@@ -207,7 +207,70 @@ Filter: Filter all titles with a rating between {ratings_start} and {ratings_sta
 Format: For up to the first 25 titles, extract the necessary details: ID, title, year, and rating. The ID of the movie is the part of the URL after tt in the href attribute. For example, tt10078772. Organize the data into a JSON structure as follows:
 {json_structure}
 Submit: Submit the JSON data in the text box below.
-'''
+''',
+
+    39: '''Write a web application that exposes an API with a single query parameter: ?country=. It should fetch the Wikipedia page of the country, extracts all headings (H1 to H6), and create a Markdown outline for the country. The outline should look like this:
+{markdown_outline}
+API Development: Choose any web framework (e.g., FastAPI) to develop the web application. Create an API endpoint (e.g., /api/outline) that accepts a country query parameter.
+Fetching Wikipedia Content: Find out the Wikipedia URL of the country and fetch the page's HTML.
+Extracting Headings: Use an HTML parsing library (e.g., BeautifulSoup, lxml) to parse the fetched Wikipedia page. Extract all headings (H1 to H6) from the page, maintaining order.
+Generating Markdown Outline: Convert the extracted headings into a Markdown-formatted outline. Headings should begin with #.
+Enabling CORS: Configure the web application to include appropriate CORS headers, allowing GET requests from any origin.
+What is the URL of your API endpoint?''',
+
+    40: '''As part of this initiative, you are tasked with developing a system that automates the following:
+API Integration and Data Retrieval: Use the BBC Weather API to fetch the weather forecast for Mumbai. Send a GET request to the locator service to obtain the city's locationId. Include necessary query parameters such as API key, locale, filters, and search term (city).
+Weather Data Extraction: Retrieve the weather forecast data using the obtained locationId. Send a GET request to the weather broker API endpoint with the locationId.
+Data Transformation: Extract the localDate and enhancedWeatherDescription from each day's forecast. Iterate through the forecasts array in the API response and map each localDate to its corresponding enhancedWeatherDescription. Create a JSON object where each key is the localDate and the value is the enhancedWeatherDescription.
+The output would look like this:
+{json_format}
+What is the JSON weather forecast description for {required_city}?''',
+
+    41: '''What is the maximum latitude of the bounding box of the city Tehran in the country Iran on the Nominatim API?
+API Integration: Use the Nominatim API to fetch geospatial data for a specified city within a country via a GET request to the Nominatim API with parameters for the city and country. Ensure adherence to Nominatim’s usage policies, including rate limiting and proper attribution.
+Data Retrieval and Filtering: Parse the JSON response from the API. If multiple results are returned (e.g., multiple cities named “Springfield” in different states), filter the results based on the provided osm_id ending to select the correct city instance.
+Parameter Extraction: Access the boundingbox attribute. Depending on whether you're looking for the minimum or maximum latitude, extract the corresponding latitude value.
+Impact
+By automating the extraction and processing of bounding box data, UrbanRide can:
+Optimize Routing: Enhance route planning algorithms with precise geographical boundaries, reducing delivery times and operational costs.
+Improve Fleet Allocation: Allocate vehicles more effectively across defined service zones based on accurate city extents.
+Enhance Market Analysis: Gain deeper insights into regional performance, enabling targeted marketing and service improvements.
+Scale Operations: Seamlessly integrate new cities into their service network with minimal manual intervention, ensuring consistent data quality.
+What is the {maximum_or_minimum} latitude of the bounding box of the city {city_name} in the country {country_name} on the Nominatim API? Value of the {maximum_or_minimum} latitude''',
+
+    42: '''Search using the Hacker News RSS API for the latest Hacker News post mentioning {mentioning_word} and having a minimum of {minimum_points} points. What is the link that it points to?
+Automate Data Retrieval: Utilize the HNRSS API to fetch the latest Hacker News posts. Use the URL relevant to fetching the latest posts, searching for topics and filtering by a minimum number of points.
+Extract and Present Data: Extract the most recent <item> from this result. Get the <link> tag inside it.
+Share the result: Type in just the URL in the answer.
+What is the link to the latest Hacker News post mentioning {mentioning_word} having at least {minimum_points} points?''',
+
+    43: '''Using the GitHub API, find all users located in the city {city_name} with over {followers_count} followers.
+When was the newest user's GitHub profile created?
+API Integration and Data Retrieval: Leverage GitHub’s search endpoints to query users by location and filter them by follower count.
+Data Processing: From the returned list of GitHub users, isolate those profiles that meet the specified criteria.
+Sort and Format: Identify the "newest" user by comparing the created_at dates provided in the user profile data. Format the account creation date in the ISO 8601 standard (e.g., "2024-01-01T00:00:00Z").
+Enter the date (ISO 8601, e.g. "2024-01-01T00:00:00Z") when the newest user joined GitHub.
+''', 
+
+    44: '''Create a scheduled GitHub action that runs daily and adds a commit to your repository. The workflow should:
+Use schedule with cron syntax to run once per day (must use specific hours/minutes, not wildcards)
+Include a step with your email {email} in its name
+Create a commit in each run
+Be located in .github/workflows/ directory
+After creating the workflow:
+Trigger the workflow and wait for it to complete
+Ensure it appears as the most recent action in your repository
+Verify that it creates a commit during or within 5 minutes of the workflow run
+Enter your repository URL (format: https://github.com/USER/REPO):''',
+
+
+
+
+
+
+
+
+
 
 
 

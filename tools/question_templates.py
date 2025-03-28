@@ -370,6 +370,90 @@ Aggregate Data by IP: Sum the "Size" field for each unique IP address from the f
 Identify the Top Data Consumer: Determine the IP address that has the highest total downloaded bytes. Reports the total number of bytes that this IP address downloaded.
 Across all requests under {section} on {date_string}, how many bytes did the top IP address (by volume of downloads) download?''',
 
+    51: '''As a data analyst at GlobalRetail Insights, you are tasked with extracting meaningful insights from this dataset. Specifically, you need to:
+Group Mis-spelt City Names: Use phonetic clustering algorithms to group together entries that refer to the same city despite variations in spelling. For instance, cluster "Tokyo" and "Tokio" as one.
+Filter Sales Entries: Select all entries where:
+The product sold is {product_sold}.
+The number of units sold is at least {no_of_products_sold_atleast}.
+Aggregate Sales by City: After clustering city names, group the filtered sales entries by city and calculate the total units sold for each city.
+By performing this analysis, GlobalRetail Insights will be able to:
+
+Improve Data Accuracy: Correct mis-spellings and inconsistencies in the dataset, leading to more reliable insights.
+Target Marketing Efforts: Identify high-performing regions for the specific product, enabling targeted promotional strategies.
+Optimize Inventory Management: Ensure that inventory allocations reflect the true demand in each region, reducing wastage and stockouts.
+Drive Strategic Decision-Making: Provide actionable intelligence to clients that supports strategic planning and competitive advantage in the market.
+How many units of {product_sold} were sold in {city_name} on transactions with at least {no_of_products_sold_atleast} units''',
+
+    52: '''As a data recovery analyst at ReceiptRevive Analytics, your task is to develop a program that will:
+Parse the Sales Data:
+Read the provided JSON file containing 100 rows of sales data. Despite the truncated data (specifically the missing id), you must accurately extract the sales figures from each row.
+Data Validation and Cleanup:
+Ensure that the data is properly handled even if some fields are incomplete. Since the id is missing for some entries, your focus will be solely on the sales values.
+Calculate Total Sales:
+Sum the sales values across all 100 rows to provide a single aggregate figure that represents the total sales recorded.
+By successfully recovering and aggregating the sales data, ReceiptRevive Analytics will enable RetailFlow Inc. to:
+Reconstruct Historical Sales Data: Gain insights into past sales performance even when original receipts are damaged.
+Inform Business Decisions: Use the recovered data to understand sales trends, adjust inventory, and plan future promotions.
+Enhance Data Recovery Processes: Improve methods for handling imperfect OCR data, reducing future data loss and increasing data accuracy.
+Build Client Trust: Demonstrate the ability to extract valuable insights from challenging datasets, thereby reinforcing client confidence in ReceiptRevive's services.
+Download the data from 
+What is the total sales value?''',
+
+    53: '''As a data analyst at DataSure Technologies, you have been tasked with developing a script that processes a large JSON log file and counts the number of times a specific key, represented by the placeholder {target_key}, appears in the JSON structure. Your solution must:
+Parse the Large, Nested JSON: Efficiently traverse the JSON structure regardless of its complexity.
+Count Key Occurrences: Increment a count only when {target_key} is used as a key in the JSON object (ignoring occurrences of {target_key} as a value).
+Return the Count: Output the total number of occurrences, which will be used by the operations team to assess the prevalence of particular system events or errors.
+By accurately counting the occurrences of a specific key in the log files, DataSure Technologies can:
+Diagnose Issues: Quickly determine the frequency of error events or specific system flags that may indicate recurring problems.
+Prioritize Maintenance: Focus resources on addressing the most frequent issues as identified by the key count.
+Enhance Monitoring: Improve automated monitoring systems by correlating key occurrence data with system performance metrics.
+Inform Decision-Making: Provide data-driven insights that support strategic planning for system upgrades and operational improvements.
+Download the data from 
+How many times does {target_key} appear as a key?''',
+
+    54: '''Your task as a data analyst at EngageMetrics is to write a query that performs the following:
+Filter Posts by Date: Consider only posts with a timestamp greater than or equal to a specified minimum time ({dat_time_string}), ensuring that the analysis focuses on recent posts.
+Evaluate Comment Quality: From these recent posts, identify posts where at least one comment has received more than a given number of useful stars ({no_of_useful_starts}). This criterion filters out posts with low or mediocre engagement.
+Extract and Sort Post IDs: Finally, extract all the post_id values of the posts that meet these criteria and sort them in ascending order.
+By accurately extracting these high-impact post IDs, EngageMetrics can:
+
+Enhance Reporting: Provide clients with focused insights on posts that are currently engaging audiences effectively.
+Target Content Strategy: Help marketing teams identify trending content themes that generate high-quality user engagement.
+Optimize Resource Allocation: Enable better prioritization for content promotion and further in-depth analysis of high-performing posts.
+Write a DuckDB SQL query to find all posts IDs after {date_time_string} with at least 1 comment with {no_of_useful_stars} useful stars, sorted. The result should be a table with a single column called post_id, and the relevant post IDs should be sorted in ascending order.''', #Do later
+
+    55: '''Access the Video: Use the provided YouTube link to access the mystery story audiobook.
+Convert to Audio: Extract the audio for the segment between {start_time} and {end_time}.
+Transcribe the Segment: Utilize automated speech-to-text tools as needed.
+By producing an accurate transcript of this key segment, Mystery Tales Publishing will be able to:
+
+Boost Accessibility: Provide high-quality captions and text alternatives for hearing-impaired users.
+Enhance SEO: Improve the discoverability of their content through better keyword indexing.
+Drive Engagement: Use the transcript for social media snippets, summaries, and promotional materials.
+Enable Content Analysis: Facilitate further analysis such as sentiment analysis, topic modeling, and reader comprehension studies.
+What is the text of the transcript of this Mystery Story Audiobook between {start_time} and {end_time} seconds?''',
+
+    56: '''As a digital forensics analyst at PixelGuard Solutions, your task is to reconstruct the original image from its scrambled pieces. You are provided with:
+The 25 individual image pieces (put together as a single image).
+A mapping file detailing the original (row, col) position for each piece and its current (row, col) location.
+Your reconstructed image will be critical evidence in the investigation. Once assembled, the image must be uploaded to the secure case management system for further analysis by the investigative team.
+Understand the Mapping: Review the provided mapping file that shows how each piece's original coordinates (row, col) relate to its current scrambled position.
+Reassemble the Image: Using the mapping, reassemble the 5x5 grid of image pieces to reconstruct the original image. You may use an image processing library (e.g., Python's Pillow, ImageMagick, or a similar tool) to automate the reconstruction process.
+Output the Reconstructed Image: Save the reassembled image in a lossless format (e.g., PNG or WEBP). Upload the reconstructed image to the secure case management system as required by PixelGuard’s workflow.
+By accurately reconstructing the scrambled image, PixelGuard Solutions will:
+Reveal Critical Evidence: Provide investigators with a clear view of the original image, which may contain important details related to the case.
+Enhance Analytical Capabilities: Enable further analysis and digital enhancements that can lead to breakthroughs in the investigation.
+Maintain Chain of Custody: Ensure that the reconstruction process is documented and reliable, supporting the admissibility of the evidence in court.
+Improve Operational Efficiency: Demonstrate the effectiveness of automated image reconstruction techniques in forensic investigations.
+Here is the image. It is a 500x500 pixel image that has been cut into 25 (5x5) pieces:
+Here is the mapping of each piece:
+{mappings}
+Upload the reconstructed image by moving the pieces from the scrambled position to the original position:'''
+
+
+
+
+
 
 
 

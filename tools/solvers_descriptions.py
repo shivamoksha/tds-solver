@@ -1176,6 +1176,152 @@ solvers_descriptions = {
         }
     },
 
+    51: {
+        "type": "function",
+        "function": {
+            "name": "solver_51",
+            "description": "Finds How many units of {product_sold} were sold in {city_name} on transactions with at least {no_of_products_sold_atleast} units",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "product_sold": {
+                        "type": "string",
+                        "description": "the product sold"
+                    },
+                    "city_name": {
+                        "type": "string",
+                        "description": "the city name"
+                    },
+                    "no_of_products_sold_atleast": {
+                        "type": "number",
+                        "description": "the number of products sold atleast"
+                    }
+                },
+                "required": ["product_sold", "city_name", "no_of_products_sold_atleast"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    52: {
+        "type": "function",
+        "function": {
+            "name": "solver_52",
+            "description": "Finds the total sales value",
+            "parameters": {
+                "type": "object",
+                "properties": {
+
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    53: {
+        "type": "function",
+        "function": {
+            "name": "solver_53",
+            "description": "Finds how many times does {target_key} appear as a key",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_key": {
+                        "type": "string",
+                        "description": "the target key"
+                    }
+
+                },
+                "required": ["target_key"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    54: {
+        "type": "function",
+        "function": {
+            "name": "solver_54",
+            "description": "Finds the DuckDB SQL query to find all posts IDs after {date_time_string} with at least 1 comment with {no_of_useful_stars} useful stars, sorted. The result should be a table with a single column called post_id, and the relevant post IDs should be sorted in ascending order",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "date_time_string": {
+                        "type": "string",
+                        "description": "the date time string in the ISO 8601 format"
+                    },
+                    "no_of_useful_stars": {
+                        "type": "number",
+                        "description": "the number of useful stars"
+                    }
+
+                },
+                "required": ["date_time_string", "no_of_useful_stars"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    55: {
+        "type": "function",
+        "function": {
+            "name": "solver_54",
+            "description": "Finds the text of the transcript of this Mystery Story Audiobook between {start_time} and {end_time} seconds",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "start_time": {
+                        "type": "number",
+                        "description": "the starting timestamp"
+                    },
+                    "end_time": {
+                        "type": "number",
+                        "description": "the ending timestamp"
+                    }
+
+                },
+                "required": ["start_time", "end_time"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    56: {
+    "type": "function",
+    "function": {
+        "name": "solver_56",
+        "description": "Reconstruct the image by moving the pieces from the scrambled position to the original position as per the given {mappings}",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "mappings": {
+                    "type": "array",
+                    "description": "An array of tuples representing the  mapping data, like [(2, 1, 0, 0), (1, 1, 0, 1), ....]",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                    }
+                }
+            },
+            "required": ["mappings"],
+            "additionalProperties": False
+        },
+        "strict": True
+    }
+}
+
+
+
 
 
     

@@ -1713,4 +1713,169 @@ def solver_50(temp_dir: str, file_path: str, file_name: str, section: str, date_
     return f'''{max_bytes}'''
 
 
+def solver_51(temp_dir: str, file_path: str, file_name: str, product_sold: str, no_of_products_sold_atleast: int, city_name: str):
+    import pandas as pd
+    import jellyfish
+    from unidecode import unidecode
+    
+    target_product = product_sold
+    min_sales = no_of_products_sold_atleast
+    target_city = city_name
+
+    # Load the sales data from the JSON file
+    df = pd.read_json(file_path)
+
+    # Filter for the target product and transactions with at least min_sales units
+    df = df[(df['product'] == target_product) & (df['sales'] >= min_sales)]
+
+    # Normalize city names: remove accents, convert to lowercase, and strip whitespace
+    def normalize_city(city):
+        return unidecode(str(city)).lower().strip()
+
+    df['norm_city'] = df['city'].apply(normalize_city)
+    target_norm = normalize_city(target_city)
+
+    # Apply phonetic encoding using NYSIIS to cluster similar city names
+    def phonetic(name):
+        return jellyfish.nysiis(name)
+
+    df['city_cluster'] = df['norm_city'].apply(phonetic)
+    target_cluster = phonetic(target_norm)
+
+    # Filter records matching the target city's phonetic cluster
+    filtered = df[df['city_cluster'] == target_cluster]
+
+    # Sum the 'sales' column for the filtered entries
+    total_units = int(filtered['sales'].sum())
+    return f'''{total_units}'''
+
+
+def solver_52(temp_dir: str, file_path: str, file_name: str):
+    import re
+    import json
+    total = 0
+
+    def regex_sales_extraction(line: str) -> int:
+        # Match patterns like "sales": 456 or "sales":456 or quoted numbers.
+        patterns = [
+            r'"sales"\s*:\s*(\d+)',
+            r'"sales"\s*:\s*"(\d+)"'
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, line)
+            if match and match.group(1).isdigit():
+                return int(match.group(1))
+        return 0
+
+    def repair_and_parse(line: str) -> dict:
+        # Attempt to repair missing closing braces up to 3 times.
+        for _ in range(3):
+            try:
+                return json.loads(line)
+            except json.JSONDecodeError:
+                # Append a closing brace if one is missing.
+                if line.count('{') > line.count('}'):
+                    line += '}'
+                else:
+                    line += '"}'
+        return {}
+
+    def validate_sales(value) -> int:
+        return int(value) if isinstance(value, (int, float)) and value >= 0 else 0
+
+    with open(file_path, 'r') as f:
+        for line in f:
+            # Method 1: Try direct regex extraction.
+            sales_value = regex_sales_extraction(line)
+            # Method 2: If regex fails, attempt JSON repair and extraction.
+            if not sales_value:
+                repaired_data = repair_and_parse(line.strip())
+                sales_value = repaired_data.get('sales', 0)
+            total += validate_sales(sales_value)
+
+    return f'''{total}'''
+
+
+def solver_53(temp_dir: str, file_path: str, file_name: str, target_key: str):
+    import json
+    
+    def count_key_occurrences(data) -> int:
+        count = 0
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if key == target_key:
+                    count += 1
+                count += count_key_occurrences(value)
+        elif isinstance(data, list):
+            for item in data:
+                count += count_key_occurrences(item)
+        return count
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    total_count = count_key_occurrences(data)
+    return f'''{total_count}'''
+
+
+def solver_54(date_time_string: str, no_of_useful_stars: int):
+    return f'''SELECT DISTINCT post_id FROM (SELECT timestamp, post_id, UNNEST (comments->'$[*].stars.useful') AS useful FROM social_media) AS temp WHERE useful >= {str(no_of_useful_stars)} AND timestamp > '{date_time_string}';'''
+
+
+
+def solver_55(start_time: float, end_time: float):
+    import os
+    from pydub import AudioSegment
+    import tempfile
+    import google.generativeai as genai
+    api_key = os.getenv("GEMINI_API_KEY")
+    genai.configure(api_key=api_key)
+    from google.generativeai import GenerativeModel
+
+    # Step 2: Extract transcription for the specified time range
+    temp_dir = tempfile.gettempdir()
+    temp_file = os.path.join(temp_dir, "temp_audio_segment.wav")
+    
+    try:
+        # Load the audio file
+        audio = AudioSegment.from_file("pre_saved_files/audio.mp3")
+        
+        # Extract the segment between start_time and end_time (convert to milliseconds)
+        start_ms = int(start_time * 1000)
+        end_ms = int(end_time * 1000)
+        audio_segment = audio[start_ms:end_ms]
+        
+        # Export the segment to a temporary file
+        audio_segment.export(temp_file, format="wav")
+        
+        # Initialize the Gemini model
+        model = GenerativeModel('gemini-2.0-flash')
+        
+        # Read the audio file
+        with open(temp_file, "rb") as f:
+            audio_data = f.read()
+        
+        # Transcribe using Gemini
+        response = model.generate_content(
+            contents=[
+                {
+                    "role": "user",
+                    "parts": [
+                        {"inline_data": {"mime_type": "audio/wav", "data": audio_data}},
+                        {"text": "Transcribe this audio."}
+                    ]
+                }
+            ]
+        )
+        
+        # Extract the transcription from the response
+        transcript = response.text
+        
+        return transcript
+    
+    finally:
+        # Clean up the temporary file
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
+
 

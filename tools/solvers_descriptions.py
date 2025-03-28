@@ -1018,6 +1018,169 @@ solvers_descriptions = {
         }
     },
 
+    45: {
+        "type": "function",
+        "function": {
+            "name": "solver_45",
+            "description": "Finds the total {subject_whose_marks_to_be_calculated} marks of students who scored {marks_in_criterion_subject} or more marks in {criterion_subject} in groups {group_start_number}-{group_end_number} (including both groups).",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "subject_whose_marks_to_be_calculated": {
+                        "type": "string",
+                        "description": "the subject whose total marks are to be calculated"
+                    },
+                    "marks_in_criterion_subject": {
+                        "type": "number",
+                        "description": "the marks in the criterion subject"
+                    },
+                    "criterion_subject": {
+                        "type": "string",
+                        "description": "the criterion subject, that is the subject name in the codition"
+                    },
+                    "group_start_number": {
+                        "type": "number",
+                        "description": "the start group number, that is the starting group number in the condition"
+                    },
+                    "group_end_number": {
+                        "type": "number",
+                        "description": "the end group number, that is the ending group number in the condition"
+                    }
+                    
+                },
+                "required": ["subject_whose_marks_to_be_calculated", "marks_in_criterion_subject", "criterion_subject", "group_start_number", "group_end_number"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    46: {
+        "type": "function",
+        "function": {
+            "name": "solver_46",
+            "description": "Convert a pdf to a markdown file",
+            "parameters": {
+                "type": "object",
+                "properties": {
+
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    47: {
+        "type": "function",
+        "function": {
+            "name": "solver_47",
+            "description": "Finds the total margin for transactions before {date_string} (India Standard Time) for {product_name} sold in {country} (which may be spelt in different ways)",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "date_string": {
+                        "type": "string",
+                        "description": "the date string in the format '%a %b %d %Y %H:%M:%S GMT%z'"
+                    },
+                    "product_name": {
+                        "type": "string",
+                        "description": "the product name"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "the country name code"
+                    }
+
+                },
+                "required": ["date_string", "product_name", "country"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    48: {
+        "type": "function",
+        "function": {
+            "name": "solver_48",
+            "description": "Finds the number of unique students are there in the file",
+            "parameters": {
+                "type": "object",
+                "properties": {
+
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    49: {
+        "type": "function",
+        "function": {
+            "name": "solver_49",
+            "description": "Finds the number of successful GET requests for pages under {url_prefix} from {start_hour} until before {end_hour} on {day_of_week}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "url_prefix": {
+                        "type": "string",
+                        "description": "the URL prefix, in the format '/url_prefix/' "
+                    },
+                    "start_hour": {
+                        "type": "number",
+                        "description": "the start hour"
+                    },
+                    "end_hour": {
+                        "type": "number",
+                        "description": "the end hour"
+                    },
+                    "day_of_week": {
+                        "type": "number",
+                        "description": "the day of the week in number, Monday is 0, Tuesday is 1, Wednesday is 2, Thursday is 3, Friday is 4, Saturday is 5, Sunday is 6"
+                    }
+
+                },
+                "required": ["url_prefix", "start_hour", "end_hour", "day_of_week"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+    50: {
+        "type": "function",
+        "function": {
+            "name": "solver_50",
+            "description": "Finds across all requests under {section} on {date_string}, how many bytes did the top IP address (by volume of downloads) download",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "section": {
+                        "type": "string",
+                        "description": "the section name, in the format '/section/' "
+                    },
+                    "date_string": {
+                        "type": "string",
+                        "description": "the date string in the format 'YYYY-MM-DD'"
+                    }
+
+                },
+                "required": ["section", "date_string"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+
+
+    
+
+
 
 
 

@@ -1359,3 +1359,358 @@ jobs:
     os.chdir(PWD)
     return f'''https://github.com/pradeepmondal/tds-actions-test'''
 
+def solver_45(temp_dir: str, file_path: str, file_name: str, subject_whose_marks_to_be_calculated: str, marks_in_criterion_subject: int, criterion_subject: str, group_start_number: int, group_end_number: int):
+    import tabula
+    import pandas as pd
+    import os
+
+    
+    # Extract tables from the PDF file
+    tabula.convert_into(file_path, "extracted_data.csv", output_format="csv", pages="all")
+
+    # Load the extracted data into a DataFrame
+    data = pd.read_csv("extracted_data.csv")
+
+    # Convert columns to numeric to handle any non-numeric values
+    data[criterion_subject] = pd.to_numeric(data[criterion_subject], errors='coerce')
+    data[subject_whose_marks_to_be_calculated] = pd.to_numeric(data[subject_whose_marks_to_be_calculated], errors='coerce')
+    data.dropna(inplace=True)
+    data.reset_index(inplace=True)
+    data['Group'] = ((data.index//30)+1)
+
+    # Filter data for groups 53-91 and students who scored 43 or more in Maths
+    filtered_data = data[(data[criterion_subject] >= marks_in_criterion_subject) & (data['Group'] >= group_start_number) & (data['Group'] <= group_end_number)]
+
+    # Calculate the total Biology marks
+    total_subject_marks = filtered_data[subject_whose_marks_to_be_calculated].sum()
+    os.remove("extracted_data.csv")
+    return f'''{int(total_subject_marks)}'''
+
+
+def solver_46(temp_dir: str, file_path: str, file_name: str):
+    import fitz  # PyMuPDF
+    from markdownify import markdownify as md
+    from string import Template
+    import os
+    import subprocess
+
+    def convert_pdf_to_markdown(pdf_path, markdown_path):
+        doc = fitz.open(pdf_path)
+        text = ''
+        
+        for page_num in range(len(doc)):
+            page = doc.load_page(page_num)
+            text += page.get_text()
+
+        with open('raw_test.txt', 'w', encoding='utf-8') as raw_file:
+            raw_file.write(text)
+        
+        markdown_text = md(text)
+
+        with open(markdown_path, 'w', encoding='utf-8') as md_file:
+            md_file.write(markdown_text)
+        
+        with open(markdown_path, 'r', encoding='utf-8') as md_file:
+            word = md_file.readline().split()[0]
+
+
+
+        text_to_added = Template('''
+    # beneficium virgo
+    {https://$word.com}
+    | $word   | $word |
+    | -------- | ------- |
+    | $word  | $word    |
+    | $word | $word     |
+    | $word   | $word    |
+    - a
+    - b
+    ```
+    $word
+    ```
+    >
+    ''')
+        with open(markdown_path, 'a', encoding='utf-8') as md_file:
+            md_file.write(text_to_added.substitute(word=word))
+        
+        subprocess.run(["npx", "prettier", markdown_path, "--write"], check=True)
+        
+        with open(markdown_path, 'r', encoding='utf-8') as md_file:
+            markdown = md_file.read()
+        return f'''{markdown}'''
+        
+
+    # Usage
+    pdf_path = file_path
+    markdown_path = 'pdf-to-markdown_output.md'
+    markdown = convert_pdf_to_markdown(pdf_path, markdown_path)
+    os.remove('raw_test.txt')
+    os.remove('pdf-to-markdown_output.md')
+    return markdown
+
+
+def solver_47(temp_dir: str, file_path: str, file_name: str, date_string: str, product_name: str, country: str):
+
+    def calculate_margin(excel_file, target_country, target_product, target_date):
+        import pandas as pd
+        import datetime
+        
+        target_date = datetime.datetime.strptime(target_date, "%a %b %d %Y %H:%M:%S GMT%z")
+        target_date = target_date.strftime("%Y-%m-%d")
+        # Read the Excel file
+        df = pd.read_excel(excel_file)
+        
+        # Clean up the data
+        df = df.apply(lambda x: x.str.strip() if isinstance(x, pd.Series) and x.dtype == 'object' else x)
+        
+        # Clean up dates - handle both formats
+        def parse_date(date_str):
+            try:
+                # Try MM-DD-YYYY format
+                return pd.to_datetime(date_str, format='%m-%d-%Y')
+            except:
+                try:
+                    # Try YYYY/MM/DD format
+                    return pd.to_datetime(date_str, format='%Y/%m/%d')
+                except:
+                    return None
+
+        df['Date'] = df['Date'].apply(parse_date)
+        
+        # Clean up Sales and Cost columns
+        df['Sales'] = df['Sales'].str.replace(' USD', '').str.strip().astype(float)
+        df['Cost'] = df['Cost'].fillna(df['Sales'] * 0.5)  # Handle missing costs (50% of sales)
+        df['Cost'] = df['Cost'].str.replace(' USD', '').str.strip().astype(float)
+        
+        # Clean up Product column (remove code after slash)
+        df['Product'] = df['Product/Code'].str.split('/').str[0]
+        
+        # Create mapping for country variations
+        country_mappings = {
+            'US': ['USA', 'U.S.A', 'United States'],
+            'AE': ['UAE', 'U.A.E', 'United Arab Emirates'],
+            'UK': ['U.K', 'United Kingdom'],
+            'IN': ['Ind', 'IND', 'India'],
+            'BR': ['BRA', 'Bra', 'Brazil'],
+            'FR': ['Fra', 'FRA', 'France']
+        }
+        
+        # Standardize country names
+        for standard, variants in country_mappings.items():
+            df.loc[df['Country'].isin(variants), 'Country'] = standard
+        
+        # Filter the data
+        filtered_df = df[
+            (df['Country'] == target_country) &
+            (df['Product'] == target_product) &
+            (df['Date'] <= target_date)
+        ]
+        
+        # Calculate total sales and costs
+        total_sales = filtered_df['Sales'].sum()
+        total_cost = filtered_df['Cost'].sum()
+        
+        # Calculate margin
+        margin = (total_sales - total_cost) / total_sales if total_sales > 0 else 0
+        
+        return margin
+
+    # Example usage: # The value of S from your question
+
+    margin = calculate_margin(file_path, country, product_name, date_string)
+    return f'''{margin:.4f}'''
+
+
+def solver_48(temp_dir: str, file_path: str, file_name: str):
+    
+    def count_unique_students(file_path: str):
+        student_ids = set()
+        try:
+            with open(file_path, 'r') as file:
+                for line in file:
+                    # Skip empty lines
+                    line = line.strip()
+                    if not line:
+                        continue
+                    
+                    # Step 1: Split line into pre-Marks and post-Marks parts
+                    parts = line.upper().split("MARKS", 1)  # Case-insensitive split
+                    if len(parts) < 2:
+                        continue  # Skip lines without "Marks"
+                    
+                    # Step 2: Isolate the ID-containing segment
+                    id_section = parts[0].strip()
+                    
+                    # Step 3: Find last valid delimiter (- or :)
+                    last_delim_pos = max(id_section.rfind('-'), id_section.rfind(':'))
+                    
+                    if last_delim_pos == -1:
+                        continue  # No delimiter found
+                    
+                    # Step 4: Extract ID
+                    student_id = id_section[last_delim_pos+1:].strip()
+                    
+                    # Step 5: Validate ID format (alphanumeric only)
+                    if student_id.isalnum():
+                        student_ids.add(student_id)
+            
+            return len(student_ids)
+        
+        except Exception as e:
+            print(f"Error processing file: {e}")
+            return -1  # Return -1 to indicate an error
+        
+    return f'''{count_unique_students(file_path)}'''
+
+def solver_49(temp_dir: str, file_path: str, file_name: str, 
+          url_prefix: str, 
+          day_of_week: int,
+          start_hour: int, 
+          end_hour: int,   # Thursday (Monday is 0)
+          request_method='GET', 
+          status_min=200, 
+          status_max=300):
+    
+    import gzip
+    import re
+    from datetime import datetime
+
+    
+    def parse_log_line(line):
+
+        try:
+            parts = []
+            current = ""
+            in_quotes = False
+            escape_next = False
+
+            for char in line:
+                if escape_next:
+                    current += char
+                    escape_next = False
+                elif char == '\\' and in_quotes:
+                    escape_next = True
+                elif char == '"':
+                    in_quotes = not in_quotes
+                    current += char
+                elif char == ' ' and not in_quotes:
+                    parts.append(current)
+                    current = ""
+                else:
+                    current += char
+            if current:
+                parts.append(current)
+
+            # Recombine into a cleaned line.
+            cleaned_line = " ".join(parts)
+            match = re.match(r'([\d\.]+) ([^ ]+) ([^ ]+) \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)" (.*?) (.*?)$', cleaned_line)
+            if not match:
+                return None
+
+            ip, logname, user, time_str, request, status, size, referer, user_agent, vhost, server = match.groups()
+            
+            # Parse the time string (e.g., "01/May/2024:00:00:00 +0000")
+            time_obj = datetime.strptime(time_str.strip(), "%d/%b/%Y:%H:%M:%S %z")
+            
+            # Split the request into method, URL, and protocol.
+            request_parts = request.split(" ")
+            if len(request_parts) >= 2:
+                method = request_parts[0]
+                url = request_parts[1]
+            else:
+                method = ""
+                url = ""
+            
+            return {
+                'ip': ip,
+                'time': time_obj,
+                'method': method,
+                'url': url,
+                'status': int(status),
+                'vhost': vhost
+            }
+        except Exception:
+            return None
+
+    count = 0
+    total_lines = 0
+    parsed_lines = 0
+
+    with gzip.open(file_path, 'rt', encoding='utf-8', errors='replace') as f:
+        for line in f:
+            total_lines += 1
+            parsed_log = parse_log_line(line.strip())
+            if parsed_log:
+                parsed_lines += 1
+                log_time = parsed_log['time']
+                if (parsed_log['url'].startswith(url_prefix) and
+                    parsed_log['method'] == request_method and
+                    status_min <= parsed_log['status'] < status_max and
+                    log_time.weekday() == day_of_week and
+                    start_hour <= log_time.hour < end_hour):
+                    count += 1
+
+    print(f"\nTotal lines processed: {total_lines}")
+    print(f"Successfully parsed: {parsed_lines}")
+    print(f"Number of successful {request_method} requests for {url_prefix} between {start_hour}:00 and {end_hour}:00 on day {day_of_week}: {count}")
+    print("END")
+    return f'''{count}'''
+
+def solver_50(temp_dir: str, file_path: str, file_name: str, section: str, date_string: str):
+    import gzip
+    import re
+    from datetime import datetime
+    from collections import defaultdict
+    
+
+    target_date = date_string
+    # Parse target date
+    target_date_obj = datetime.strptime(target_date, "%Y-%m-%d")
+
+    # Regex pattern to parse Apache log lines
+    log_pattern = r'([\d\.]+) [^ ]+ [^ ]+ \[(.*?)\] "(.*?)" \d+ (\d+) "[^"]*" "[^"]*" .*'
+
+    def parse_log_line(line):
+        """Parses a single log line into structured fields."""
+        match = re.match(log_pattern, line)
+        if not match:
+            return None
+
+        ip, time_str, request, size = match.groups()
+
+        # Parse time and request details
+        time_obj = datetime.strptime(time_str.strip(), "%d/%b/%Y:%H:%M:%S %z")
+        request_parts = request.split(" ")
+
+        url = request_parts[1] if len(request_parts) >= 2 else ""
+
+        return {
+            "ip": ip,
+            "time": time_obj,
+            "url": url,
+            "size": int(size)
+        }
+
+    # Initialize variables
+    ip_download_totals = defaultdict(int)
+
+    # Read the GZipped log file
+    with gzip.open(file_path, "rt", encoding="utf-8", errors="replace") as f:
+        for line in f:
+            parsed_log = parse_log_line(line.strip())
+
+            if parsed_log:
+                # Filter by section and target date
+                log_date = parsed_log["time"].date()
+                if parsed_log["url"].startswith(section) and log_date == target_date_obj.date():
+                    ip_download_totals[parsed_log["ip"]] += parsed_log["size"]
+
+    # Identify the IP with the highest download volume
+    max_ip = max(ip_download_totals, key=ip_download_totals.get, default=None)
+    max_bytes = ip_download_totals.get(max_ip, 0)
+
+    # Return the final result
+    return f'''{max_bytes}'''
+
+
+

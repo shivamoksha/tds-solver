@@ -263,6 +263,120 @@ Ensure it appears as the most recent action in your repository
 Verify that it creates a commit during or within 5 minutes of the workflow run
 Enter your repository URL (format: https://github.com/USER/REPO):''',
 
+    45: '''This file,  contains a table of student marks in Maths, Physics, English, Economics, and Biology.
+Calculate the total {subject_whose_marks_to_be_calculated} marks of students who scored {marks_in_criterion_subject} or more marks in {criterion_subject} in groups {group_start_number}-{group_end_number} (including both groups).
+Data Extraction:: Retrieve the PDF file containing the student marks table and use PDF parsing libraries (e.g., Tabula, Camelot, or PyPDF2) to accurately extract the table data into a workable format (e.g., CSV, Excel, or a DataFrame).
+Data Cleaning and Preparation: Convert marks to numerical data types to facilitate accurate calculations.
+Data Filtering: Identify students who have scored marks between 31 and Physics in groups 1-25 (including both groups).
+Calculation: Sum the marks of the filtered students to obtain the total marks for this specific cohort.
+What is the total {subject_whose_marks_to_be_calculated} marks of students who scored {marks_in_criterion_subject} or more marks in {criterion_subject} in groups {group_start_number}-{group_end_number} (including both groups).''',
+
+    46: '''As part of the Documentation Transformation Project, you are a junior developer at EduDocs tasked with developing a streamlined workflow for converting PDF files to Markdown and ensuring their consistent formatting. This project is critical for supporting EduDocs' commitment to delivering high-quality, accessible educational resources to its clients.
+ has the contents of a sample document.
+Convert the PDF to Markdown: Extract the content from the PDF file. Accurately convert the extracted content into Markdown format, preserving the structure and formatting as much as possible.
+Format the Markdown: Use Prettier version 3.4.2 to format the converted Markdown file.
+Submit the Formatted Markdown: Provide the final, formatted Markdown file as your submission.
+What is the markdown content of the PDF, formatted with prettier@3.4.2?''',
+
+    47:'''You need to clean this Excel data and calculate the total margin for all transactions that satisfy the following criteria:
+Time Filter: Sales that occurred up to and including a specified date (Tue Oct 24 2023 09:13:39 GMT+0530 (India Standard Time)).
+Product Filter: Transactions for a specific product (Iota). (Use only the product name before the slash.)
+Country Filter: Transactions from a specific country (IN), after standardizing the country names.
+The total margin is defined as:
+
+Your solution should address the following challenges:
+
+Trim and Normalize Strings: Remove extra spaces from the Customer Name and Country fields. Map inconsistent country names (e.g., "USA", "U.S.A", "US") to a standardized format.
+Standardize Date Formats: Detect and convert dates from "MM-DD-YYYY" and "YYYY/MM/DD" into a consistent date format (e.g., ISO 8601).
+Extract the Product Name: From the Product field, extract the portion before the slash (e.g., extract "Theta" from "Theta/5x01vd").
+Clean and Convert Sales and Cost: Remove the "USD" text and extra spaces from the Sales and Cost fields. Convert these fields to numerical values. Handle missing Cost values appropriately (50% of Sales).
+Filter the Data: Include only transactions up to and including Tue Oct 24 2023 09:13:39 GMT+0530 (India Standard Time), matching product Iota, and country IN.
+Calculate the Margin: Sum the Sales and Cost for the filtered transactions. Compute the overall margin using the formula provided.
+By cleaning the data and calculating accurate margins, RetailWise Inc. can:
+
+Improve Decision Making: Provide clients with reliable margin analyses to optimize pricing and inventory.
+Enhance Reporting: Ensure historical data is consistent and accurate, boosting stakeholder confidence.
+Streamline Operations: Reduce the manual effort needed to clean data from legacy sources.
+Download the Sales Excel file: 
+
+What is the total margin for transactions before {date_string} (India Standard Time) for {product_name} sold in {country} (which may be spelt in different ways)?''', #Do later
+
+    48: '''As a data analyst at EduTrack Systems, your task is to process this text file and determine the number of unique students based on their student IDs. This deduplication is essential to:
+Ensure Accurate Reporting: Avoid inflated counts in enrollment and performance reports.
+Improve Data Quality: Clean the dataset for further analytics, such as tracking academic progress or resource allocation.
+Optimize Administrative Processes: Provide administrators with reliable data to support decision-making.
+You need to do the following:
+Data Extraction: Read the text file line by line. Parse each line to extract the student ID.
+Deduplication: Remove duplicates from the student ID list.
+Reporting: Count the number of unique student IDs present in the file.
+By accurately identifying the number of unique students, EduTrack Systems will:
+Enhance Data Integrity: Ensure that subsequent analyses and reports reflect the true number of individual students.
+Reduce Administrative Errors: Minimize the risk of misinformed decisions that can arise from duplicate entries.
+Streamline Resource Allocation: Provide accurate student counts for budgeting, staffing, and planning academic programs.
+Improve Compliance Reporting: Ensure adherence to regulatory requirements by maintaining precise student records.
+Download the text file with student marks 
+How many unique students are there in the file?''',
+
+    49: '''As a data analyst, you are tasked with determining how many successful GET requests for pages under {url_prefix} were made on {day_of_week} between {start_hour} and {end_hour} during May 2024. This metric will help:
+
+Scale Resources: Ensure that servers can handle the peak load during these critical hours.
+Content Planning: Determine the popularity of regional content to decide on future content investments.
+Marketing Insights: Tailor promotional strategies for peak usage times.
+This GZipped Apache log file (61MB) has 258,074 rows. Each row is an Apache web log entry for the site s-anand.net in May 2024.
+
+Each row has these fields:
+
+IP: The IP address of the visitor
+Remote logname: The remote logname of the visitor. Typically "-"
+Remote user: The remote user of the visitor. Typically "-"
+Time: The time of the visit. E.g. [01/May/2024:00:00:00 +0000]. Not that this is not quoted and you need to handle this.
+Request: The request made by the visitor. E.g. GET /blog/ HTTP/1.1. It has 3 space-separated parts, namely (a) Method: The HTTP method. E.g. GET (b) URL: The URL visited. E.g. /blog/ (c) Protocol: The HTTP protocol. E.g. HTTP/1.1
+Status: The HTTP status code. If 200 <= Status < 300 it is a successful request
+Size: The size of the response in bytes. E.g. 1234
+Referer: The referer URL. E.g. https://s-anand.net/
+User agent: The browser used. This will contain spaces and might have escaped quotes.
+Vhost: The virtual host. E.g. s-anand.net
+Server: The IP address of the server.
+The fields are separated by spaces and quoted by double quotes ("). Unlike CSV files, quoted fields are escaped via \" and not "". (This impacts 41 rows.)
+
+All data is in the GMT-0500 timezone and the questions are based in this same timezone.
+
+By determining the number of successful GET requests under the defined conditions, we'll be able to:
+
+Optimize Infrastructure: Scale server resources effectively during peak traffic times, reducing downtime and improving user experience.
+Strategize Content Delivery: Identify popular content segments and adjust digital content strategies to better serve the audience.
+Improve Marketing Efforts: Focus marketing initiatives on peak usage windows to maximize engagement and conversion.
+What is the number of successful GET requests for pages under {url_prefix} from {start_hour} until before {end_hour} on {day_of_week}?''',
+
+    50: '''This GZipped Apache log file (61MB) has 258,074 rows. Each row is an Apache web log entry for the site s-anand.net in May 2024.
+Each row has these fields:
+IP: The IP address of the visitor
+Remote logname: The remote logname of the visitor. Typically "-"
+Remote user: The remote user of the visitor. Typically "-"
+Time: The time of the visit. E.g. [01/May/2024:00:00:00 +0000]. Not that this is not quoted and you need to handle this.
+Request: The request made by the visitor. E.g. GET /blog/ HTTP/1.1. It has 3 space-separated parts, namely (a) Method: The HTTP method. E.g. GET (b) URL: The URL visited. E.g. /blog/ (c) Protocol: The HTTP protocol. E.g. HTTP/1.1
+Status: The HTTP status code. If 200 <= Status < 300 it is a successful request
+Size: The size of the response in bytes. E.g. 1234
+Referer: The referer URL. E.g. https://s-anand.net/
+User agent: The browser used. This will contain spaces and might have escaped quotes.
+Vhost: The virtual host. E.g. s-anand.net
+Server: The IP address of the server.
+The fields are separated by spaces and quoted by double quotes ("). Unlike CSV files, quoted fields are escaped via \" and not "". (This impacts 41 rows.)
+
+All data is in the GMT-0500 timezone and the questions are based in this same timezone.
+
+Filter the Log Entries: Extract only the requests where the URL starts with {section}. Include only those requests made on the specified {date_string}.
+Aggregate Data by IP: Sum the "Size" field for each unique IP address from the filtered entries.
+Identify the Top Data Consumer: Determine the IP address that has the highest total downloaded bytes. Reports the total number of bytes that this IP address downloaded.
+Across all requests under {section} on {date_string}, how many bytes did the top IP address (by volume of downloads) download?''',
+
+
+
+
+    
+
+
+
 
 
 

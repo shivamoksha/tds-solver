@@ -105,8 +105,32 @@ What is your repository URL? It will look like: https://github.com/USER/REPO''',
     26: '''Create and push an image to Docker Hub. Add a tag named {tag} to the image.
 What is the Docker image URL? It should look like: https://hub.docker.com/repository/docker/$USER/$REPO/general''',
 
-    27: '''empty_question''', #Do later
-    28: '''empty_question''', #Do later
+    27: '''Download . This file has 2-columns:
+
+studentId: A unique identifier for each student, e.g. 1, 2, 3, ...
+class: The class (including section) of the student, e.g. 1A, 1B, ... 12A, 12B, ... 12Z
+Write a FastAPI server that serves this data. For example, /api should return all students data (in the same row and column order as the CSV file) as a JSON like this:
+{json_format}
+If the URL has a query parameter class, it should return only students in those classes. For example, /api?class=1A should return only students in class 1A. /api?class=1A&class=1B should return only students in class 1A and 1B. There may be any number of classes specified. Return students in the same order as they appear in the CSV file (not the order of the classes).
+Make sure you enable CORS to allow GET requests from any origin.
+What is the API URL endpoint for FastAPI? It might look like: http://127.0.0.1:8000/api''',
+
+    28: '''Ngrok is a tool that creates secure tunnels to your localhost, making your local development server accessible to the internet. It's essential for testing webhooks, sharing work in progress, or debugging applications in production-like environments.
+
+Run the command uvx ngrok http 8000 to create a tunnel to your local server on port 8000. This generates a public URL that you can share with others.
+
+To get started, log into ngrok.com and get an authtoken from the dashboard. Copy it. Then run:
+
+ngrok config add-authtoken $YOUR_AUTHTOKEN
+Now you can forward any local port to the internet. For example:
+{codes}
+Download Llamafile. Run the Llama-3.2-1B-Instruct.Q6_K.llamafile model with it.
+
+Create a tunnel to the Llamafile server using ngrok.
+
+What is the ngrok URL? It might look like: https://[random].ngrok-free.app/
+
+''',
 
     29: '''One of the test cases involves sending a sample piece of meaningless text:
 {meaningless_text}

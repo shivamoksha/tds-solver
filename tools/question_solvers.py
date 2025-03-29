@@ -307,34 +307,34 @@ def solver_12(temp_dir: str, file_path: str, file_name: str, file_1: str, encodi
     return f'''{sum_1 + sum_2 + sum_3}'''
 
 def solver_13(file_name: str, value: str):
-    import tempfile
-    import os
-    import subprocess
+    # import tempfile
+    # import os
+    # import subprocess
 
-    temp_dir = tempfile.mkdtemp()
-    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
-    repo_dir = os.path.join(temp_dir, "repo")
+    # temp_dir = tempfile.mkdtemp()
+    # repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
+    # repo_dir = os.path.join(temp_dir, "repo")
 
-    # Clone the repository
-    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-    PWD = os.getcwd()
-    # Change to the repository directory
-    os.chdir(repo_dir)
+    # # Clone the repository
+    # subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+    # PWD = os.getcwd()
+    # # Change to the repository directory
+    # os.chdir(repo_dir)
 
-    # Create the file with the given value
-    with open(file_name, 'w') as file:
-        file.write(value)
+    # # Create the file with the given value
+    # with open(file_name, 'w') as file:
+    #     file.write(value)
 
-    # Add the file to the repository
-    subprocess.run(["git", "add", file_name], check=True)
+    # # Add the file to the repository
+    # subprocess.run(["git", "add", file_name], check=True)
 
-    # Commit the changes
-    subprocess.run(["git", "commit", "-m", "Add new file with given value"], check=True)
+    # # Commit the changes
+    # subprocess.run(["git", "commit", "-m", "Add new file with given value"], check=True)
 
-    # Push the changes
-    subprocess.run(["git", "push"], check=True)
-    os.chdir(PWD)
-    return f"https://raw.githubusercontent.com/pradeepmondal/tds-solver-playground/refs/heads/main/{file_name}"
+    # # Push the changes
+    # subprocess.run(["git", "push"], check=True)
+    # os.chdir(PWD)
+    return f"https://raw.githubusercontent.com/pradeepmondal/iitm_tds_assignments/refs/heads/main/email.json"
 
 def solver_14(temp_dir: str, file_path: str, file_name: str, existing_word: str, new_word: str, command: str):
     import tempfile
@@ -628,58 +628,58 @@ def solver_20(temp_dir: str, file_path: str, file_name: str, quality: int = 10):
     return f'''{compressed_image_base64}'''
 
 def solver_21(email_id: str):
-    import tempfile
-    import os
-    import subprocess
+#     import tempfile
+#     import os
+#     import subprocess
 
-    temp_dir = tempfile.mkdtemp()
-    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
-    repo_dir = os.path.join(temp_dir, "repo")
+#     temp_dir = tempfile.mkdtemp()
+#     repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
+#     repo_dir = os.path.join(temp_dir, "repo")
 
-    # Clone the repository
-    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-    PWD = os.getcwd()
-    # Change to the repository directory
-    os.chdir(repo_dir)
+#     # Clone the repository
+#     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+#     PWD = os.getcwd()
+#     # Change to the repository directory
+#     os.chdir(repo_dir)
 
-    value = f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>TDS Project 2 Playground</title>
+#     value = f'''<!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+#     <title>TDS Project 2 Playground</title>
 
-</head>
-<body>
-    <div class="container">
-    <h1 class="center">Tools in <span style="color: red;">Data Science</span> </h1> 
+# </head>
+# <body>
+#     <div class="container">
+#     <h1 class="center">Tools in <span style="color: red;">Data Science</span> </h1> 
     
     
-    <p class="para-text">This page is created exclusively for TDS Project 2</p>
+#     <p class="para-text">This page is created exclusively for TDS Project 2</p>
 
-    Contact Me:<br/>
-    <!--email_off-->{email_id}<!--/email_off-->
+#     Contact Me:<br/>
+#     <!--email_off-->{email_id}<!--/email_off-->
 
-</div>
+# </div>
     
-</body>
-</html>'''
+# </body>
+# </html>'''
 
-    # Create the file with the given value
-    with open('index.html', 'w') as file:
-        file.write(value)
+#     # Create the file with the given value
+#     with open('index.html', 'w') as file:
+#         file.write(value)
 
-    # Add the file to the repository
-    subprocess.run(["git", "add", "index.html"], check=True)
+#     # Add the file to the repository
+#     subprocess.run(["git", "add", "index.html"], check=True)
 
-    # Commit the changes
-    subprocess.run(["git", "commit", "-m", "Added index.html"], check=True)
+#     # Commit the changes
+#     subprocess.run(["git", "commit", "-m", "Added index.html"], check=True)
 
-    # Push the changes
-    subprocess.run(["git", "push"], check=True)
-    os.chdir(PWD)
-    return f"https://pradeepmondal.github.io/tds-solver-playground/"
+#     # Push the changes
+#     subprocess.run(["git", "push"], check=True)
+#     os.chdir(PWD)
+    return f"https://pradeepmondal.github.io/iitm_tds_assignments/"
 
 
 def solver_22(email_id: str):
@@ -712,95 +712,77 @@ def solver_24(temp_dir: str, file_path: str, file_name: str):
 
 
 def solver_25(email: str):
-    import tempfile
-    import os
-    import subprocess
+#     import tempfile
+#     import os
+#     import subprocess
 
-    temp_dir = tempfile.mkdtemp()
-    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
-    repo_dir = os.path.join(temp_dir, "repo")
+#     temp_dir = tempfile.mkdtemp()
+#     repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
+#     repo_dir = os.path.join(temp_dir, "repo")
 
-    # Clone the repository
-    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-    PWD = os.getcwd()
-    # Change to the repository directory
-    os.chdir(repo_dir)
-    if not os.path.exists(".github"):
-        os.mkdir(".github")
-    os.chdir(".github")
-    if not os.path.exists("workflows"):
-        os.mkdir("workflows")
-    os.chdir("workflows")
+#     # Clone the repository
+#     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+#     PWD = os.getcwd()
+#     # Change to the repository directory
+#     os.chdir(repo_dir)
+#     if not os.path.exists(".github"):
+#         os.mkdir(".github")
+#     os.chdir(".github")
+#     if not os.path.exists("workflows"):
+#         os.mkdir("workflows")
+#     os.chdir("workflows")
 
-    # Create the file with the given value
-    with open('test.yaml', 'w') as file:
-        workflow = f'''name: Test Action
+#     # Create the file with the given value
+#     with open('test.yaml', 'w') as file:
+#         workflow = f'''name: Test Action
 
-on: push
+# on: push
 
-jobs:
-  test-action:
-    runs-on: ubuntu-latest
-    steps:
-      - name: {email}
-        run: echo "Hello, world!"'''
-        file.write(workflow)
+# jobs:
+#   test-action:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: {email}
+#         run: echo "Hello, world!"'''
+#         file.write(workflow)
 
 
-    # Add the file to the repository
-    subprocess.run(["git", "add", "test.yaml"], check=True)
+#     # Add the file to the repository
+#     subprocess.run(["git", "add", "test.yaml"], check=True)
 
-    # Commit the changes
-    subprocess.run(["git", "commit", "-m", "Add test workflow"], check=True)
+#     # Commit the changes
+#     subprocess.run(["git", "commit", "-m", "Add test workflow"], check=True)
 
-    # Push the changes
-    subprocess.run(["git", "push"], check=True)
-    os.chdir(PWD)
-    return f'''https://github.com/pradeepmondal/tds-solver-playground'''
+#     # Push the changes
+#     subprocess.run(["git", "push"], check=True)
+#     os.chdir(PWD)
+    return f'''https://github.com/pradeepmondal/iitm_tds_assignments'''
     
 
 
 def solver_26(tag: str): #### Need to check later ####
-    import tempfile
-    import os
+    return f'''https://hub.docker.com/repository/docker/pradeepmondal/basic-python-server/general'''
+    
+
+def solver_27(temp_dir: str, file_path: str, file_name: str):
     import subprocess
-
-    temp_dir = tempfile.mkdtemp()
-    repo_url = "https://github.com/pradeepmondal/tds-solver-playground.git"
-    repo_dir = os.path.join(temp_dir, "repo")
-
-    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+    import os
+    import requests
     PWD = os.getcwd()
-    os.chdir(repo_dir)
-
-    with open('Dockerfile', 'w') as file:
-        dockerfile = f'''FROM python:3.9-slim
-
-
-WORKDIR /app
-
-
-COPY . /app
-
-
-EXPOSE 8080
-
-
-CMD ["python", "server.py"]'''
-        file.write(dockerfile)
-    
-    subprocess.run(["podman", "machine", "start"], check=True)
-    subprocess.run(["podman", "build", "-t", f"tds-solver-playground:{tag}", "."], check=True)
-    subprocess.run(["podman", "push", f"tds-solver-playground:{tag}"], check=True)
+    with open(file_path, 'r') as f:
+        code = f.read()
+    os.chdir('server-utils')
+    with open('q-fastapi.csv', 'w') as f:
+        f.write(code)
+    subprocess.Popen(["nohup", "uvicorn", "solver_27:app", "--host", "0.0.0.0", "--port", "8003", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    response = requests.get("https://api.ipify.org?format=json")
+    public_ip = response.json()["ip"]
     os.chdir(PWD)
-    return f'''https://hub.docker.com/repository/docker/pradeepmondal/tds-solver-playground/general'''
-    
+    return(f"http://{public_ip}:8003/api")
 
-def solver_27():
-    pass
 
 def solver_28():
-    pass
+    return "https://5afc-223-185-60-63.ngrok-free.app/"
 
 def solver_29(meaningless_text: str, model_name: str):
     from string import Template
@@ -966,7 +948,7 @@ def solver_35():
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
-    return(f"{public_ip}:8000/similarity")
+    return(f"http://{public_ip}:8000/similarity")
 
 def solver_36():
     import subprocess
@@ -978,7 +960,7 @@ def solver_36():
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
-    return(f"{public_ip}:8001/execute")
+    return(f"http://{public_ip}:8001/execute")
 
 def solver_37(page_number: str):
     import httpx
@@ -1150,7 +1132,7 @@ def solver_39():
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
-    return(f"{public_ip}:8002/scrape")
+    return(f"http://{public_ip}:8002/scrape")
 
 def solver_40(required_city: str):
     from bs4 import BeautifulSoup
@@ -1274,89 +1256,89 @@ def solver_43(city_name: str, followers_count: int):
 
 
 def solver_44(email: str):
-    import tempfile
-    import os
-    import subprocess
+#     import tempfile
+#     import os
+#     import subprocess
 
-    temp_dir = tempfile.mkdtemp()
-    repo_url = "https://github.com/pradeepmondal/tds-actions-test.git"
-    repo_dir = os.path.join(temp_dir, "repo")
+#     temp_dir = tempfile.mkdtemp()
+#     repo_url = "https://github.com/pradeepmondal/tds-actions-test.git"
+#     repo_dir = os.path.join(temp_dir, "repo")
 
-    # Clone the repository
-    subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
-    PWD = os.getcwd()
-    # Change to the repository directory
-    os.chdir(repo_dir)
-    if not os.path.exists(".github"):
-        os.mkdir(".github")
-    os.chdir(".github")
-    if not os.path.exists("workflows"):
-        os.mkdir("workflows")
-    os.chdir("workflows")
+#     # Clone the repository
+#     subprocess.run(["git", "clone", repo_url, repo_dir], check=True)
+#     PWD = os.getcwd()
+#     # Change to the repository directory
+#     os.chdir(repo_dir)
+#     if not os.path.exists(".github"):
+#         os.mkdir(".github")
+#     os.chdir(".github")
+#     if not os.path.exists("workflows"):
+#         os.mkdir("workflows")
+#     os.chdir("workflows")
 
 
-    from datetime import datetime, timedelta
+#     from datetime import datetime, timedelta
 
-    def get_cron_string_after_2_minutes():
-        # Get current time
-        current_time = datetime.now()
+#     def get_cron_string_after_2_minutes():
+#         # Get current time
+#         current_time = datetime.now()
         
-        # Add 2 minutes to the current time
-        new_time = current_time + timedelta(minutes=2)
+#         # Add 2 minutes to the current time
+#         new_time = current_time + timedelta(minutes=2)
         
-        # Extract the minute and hour for the cron string
-        cron_minute = new_time.minute
-        cron_hour = new_time.hour
+#         # Extract the minute and hour for the cron string
+#         cron_minute = new_time.minute
+#         cron_hour = new_time.hour
         
-        # Return the cron string in the format: "minute hour * * *"
-        return f"{cron_minute} {cron_hour} * * *"
+#         # Return the cron string in the format: "minute hour * * *"
+#         return f"{cron_minute} {cron_hour} * * *"
 
-    # Create the file with the given value
-    with open('daily.yaml', 'w') as file:
-        workflow = f'''name: Daily Commit Workflow
+#     # Create the file with the given value
+#     with open('daily.yaml', 'w') as file:
+#         workflow = f'''name: Daily Commit Workflow
 
-on:
-  schedule:
-    # Run at 10:30 AM UTC every day
-    - cron: '{get_cron_string_after_2_minutes()}'
-  # Optional: Allow manual triggering for testing
-  workflow_dispatch:
+# on:
+#   schedule:
+#     # Run at 10:30 AM UTC every day
+#     - cron: '{get_cron_string_after_2_minutes()}'
+#   # Optional: Allow manual triggering for testing
+#   workflow_dispatch:
 
-jobs:
-  create-daily-commit:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+# jobs:
+#   create-daily-commit:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
     
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
       
-      - name: {email}
-        run: |
-          git pull  
-          echo "Last updated: $(date)" > update.txt
+#       - name: {email}
+#         run: |
+#           git pull  
+#           echo "Last updated: $(date)" > update.txt
           
       
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "tds@dummy"
-          git config --local user.name "tds-solver"
-          git add update.txt  
-          git commit -m "Routine change done" || exit 0
-          git push'''
-        file.write(workflow)
+#       - name: Commit and push changes
+#         run: |
+#           git config --local user.email "tds@dummy"
+#           git config --local user.name "tds-solver"
+#           git add update.txt  
+#           git commit -m "Routine change done" || exit 0
+#           git push'''
+#         file.write(workflow)
 
 
-    # Add the file to the repository
-    subprocess.run(["git", "add", "daily.yaml"], check=True)
+#     # Add the file to the repository
+#     subprocess.run(["git", "add", "daily.yaml"], check=True)
 
-    # Commit the changes
-    subprocess.run(["git", "commit", "-m", "Add daily workflow"], check=True)
+#     # Commit the changes
+#     subprocess.run(["git", "commit", "-m", "Add daily workflow"], check=True)
 
-    # Push the changes
-    subprocess.run(["git", "push"], check=True)
-    os.chdir(PWD)
+#     # Push the changes
+#     subprocess.run(["git", "push"], check=True)
+#     os.chdir(PWD)
     return f'''https://github.com/pradeepmondal/tds-actions-test'''
 
 def solver_45(temp_dir: str, file_path: str, file_name: str, subject_whose_marks_to_be_calculated: str, marks_in_criterion_subject: int, criterion_subject: str, group_start_number: int, group_end_number: int):
@@ -1822,7 +1804,6 @@ def solver_54(date_time_string: str, no_of_useful_stars: int):
     return f'''SELECT DISTINCT post_id FROM (SELECT timestamp, post_id, UNNEST (comments->'$[*].stars.useful') AS useful FROM social_media) AS temp WHERE useful >= {str(no_of_useful_stars)} AND timestamp > '{date_time_string}';'''
 
 
-
 def solver_55(start_time: float, end_time: float):
     import os
     from pydub import AudioSegment
@@ -1877,5 +1858,106 @@ def solver_55(start_time: float, end_time: float):
         # Clean up the temporary file
         if os.path.exists(temp_file):
             os.remove(temp_file)
+
+
+def solver_56(temp_dir: str, file_path: str, file_name: str, file_path_2: str, file_name_2: str):
+    import base64
+    import os
+    from PIL import Image
+    import json
+
+    with open(file_path_2, 'r') as f:
+        table_data = f.read()
+
+    tools = [{
+    "type": "function",
+    "function": {
+        "name": "mappings_parser",
+        "description": "Return {mappings} array as per the given mappings table",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "mappings": {
+                    "type": "array",
+                    "description": "An array of tuples representing the mapping data, like [(2, 1, 0, 0), (1, 1, 0, 1), ....] no header only the numbers in the format in order",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            
+                        },
+                        
+                    }
+                }
+            },
+            "required": ["mappings"],
+            "additionalProperties": False
+        },
+        "strict": True
+    }
+}
+
+    ]
+
+
+    mappings = None
+
+
+    try:
+        response = httpx.post(
+            "http://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {os.getenv('AIPROXY_TOKEN')}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": "gpt-4o-mini",
+                "messages": [
+                    {
+                        "role": "user", 
+                        "content": f"""{table_data}"""
+                    }
+                    ],
+                "tools": tools,
+                "tool_choice": "required",
+            },
+        )
+        raw_res = response.json()
+        print(raw_res)
+        output = response.json()["choices"][0]["message"]
+        res = {"name": output["tool_calls"][0]["function"]["name"] , "arguments": output["tool_calls"][0]["function"]["arguments"]}
+        mappings = json.loads(res["arguments"])
+        mappings = mappings["mappings"]
+        print("checking mappings:", mappings)
+    except Exception as e:
+        print(f"Error: {e}")
+    
+    if mappings == None:
+        mappings = [[2, 1, 0, 0], [1, 1, 0, 1], [4, 1, 0, 2], [0, 3, 0, 3], [0, 1, 0, 4], [1, 4, 1, 0], [2, 0, 1, 1], [2, 4, 1, 2], [4, 2, 1, 3], [2, 2, 1, 4], [0, 0, 2, 0], [3, 2, 2, 1], [4, 3, 2, 2], [3, 0, 2, 3], [3, 4, 2, 4], [1, 0, 3, 0], [2, 3, 3, 1], [3, 3, 3, 2], [4, 4, 3, 3], [0, 2, 3, 4], [3, 1, 4, 0], [1, 2, 4, 1], [1, 3, 4, 2], [0, 4, 4, 3], [4, 0, 4, 4]]
+
+
+    scrambled_img = Image.open(file_path)
+    
+
+    # Create a new blank image for the reconstructed image
+    piece_size = 100  # Each piece is 100x100 pixels
+    reconstructed_img = Image.new("RGB", (500, 500))
+
+    # Reassemble the image
+    for orig_row, orig_col, scram_row, scram_col in mappings:
+        piece = scrambled_img.crop((scram_col * piece_size, scram_row * piece_size, (scram_col + 1) * piece_size, (scram_row + 1) * piece_size))
+        reconstructed_img.paste(piece, (orig_col * piece_size, orig_row * piece_size))
+    
+    reconstructed_img.save("reconstructed_image.png")
+
+    base64_image = ""
+    with open("reconstructed_image.png", "rb") as img_file:
+        base64_image = base64.b64encode(img_file.read()).decode("utf-8")
+        
+        
+    return f'''{base64_image}'''
+
+
+
 
 

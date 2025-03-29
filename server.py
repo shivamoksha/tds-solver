@@ -301,13 +301,19 @@ def extract_parameters(matched_ques_id, question):
 
 
 @app.post("/api")
-async def api(question: Annotated[str, Form()], file: UploadFile | None = None):
+async def api(question: Annotated[str, Form()], file: List[UploadFile] | None = None):
     if file:
         temp_dir = tempfile.mkdtemp()
-        file_path = os.path.join(temp_dir, file.filename)
+        file_path = os.path.join(temp_dir, file[0].filename)
+
+        if len(file) == 2:
+            file_path_2 = os.path.join(temp_dir, file[1].filename)
+            with open(file_path_2, "wb") as f:
+                content = await file[1].read()
+                f.write(content)
         
         with open(file_path, "wb") as f:
-            content = await file.read()
+            content = await file[0].read()
             f.write(content)
         
     matched_ques_id, similarity = identify_question(question, question_templates)
@@ -319,11 +325,16 @@ async def api(question: Annotated[str, Form()], file: UploadFile | None = None):
     print(params)
     if file:
         params["file_path"] = file_path
-        params["file_name"] = file.filename
+        params["file_name"] = file[0].filename
         params["temp_dir"] = temp_dir
+        if len(file) == 2:
+            params["file_path_2"] = file_path_2
+            params["file_name_2"] = file[1].filename
     answer = solver(**params)
     if file:
         os.remove(file_path)
+        if len(file) == 2:
+            os.remove(file_path_2)
         for root, dirs, files in os.walk(temp_dir, topdown=False):
             for name in files:
                 os.remove(os.path.join(root, name))

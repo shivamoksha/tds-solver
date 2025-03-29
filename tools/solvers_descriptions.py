@@ -107,14 +107,14 @@ solvers_descriptions = {
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "excel_formula": {
+                    "formula": {
                         "type": "string",
                         "description": "the Microsoft Excel formula"
                     },
                     
 
                 },
-                "required": ["excel_formula"],
+                "required": ["formula"],
                 "additionalProperties": False
             },
             "strict": True
@@ -647,8 +647,38 @@ solvers_descriptions = {
         }
     },
 
-    27: {},
-    28: {},
+    27: {
+        "type": "function",
+        "function": {
+            "name": "solver_26",
+            "description": "Creates a fastapi server and returns the url endpoint",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+
+
+    28: {
+        "type": "function",
+        "function": {
+            "name": "solver_28",
+            "description": "Creates a tunnel to the Llamafile server using ngrok",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                },
+                "required": [],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
 
     29: {
         "type": "function",
@@ -1300,20 +1330,9 @@ solvers_descriptions = {
         "parameters": {
             "type": "object",
             "properties": {
-                "mappings": {
-                    "type": "array",
-                    "description": "An array of tuples representing the  mapping data, like [(2, 1, 0, 0), (1, 1, 0, 1), ....]",
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer"
-                        },
-                        "minItems": 4,
-                        "maxItems": 4
-                    }
-                }
+
             },
-            "required": ["mappings"],
+            "required": [],
             "additionalProperties": False
         },
         "strict": True

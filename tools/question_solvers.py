@@ -59,8 +59,12 @@ def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, c
     import json
     import os
     PWD = os.getcwd()
-    os.chdir(f"{temp_dir}")
+    
 
+    new_temp_dir = tempfile.mkdtemp()
+    os.chdir(new_temp_dir)
+    os.system(f"cp {file_path} ./{req_filename}")
+    
     # pre_cmd = ["mv", f"{file_name}", f"{req_filename}"]
     # pre_cmd = ["pwd"]
     # print(subprocess.run(pre_cmd, capture_output=True, text=True))
@@ -68,10 +72,29 @@ def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, c
     
     # Run the command in the directory with the downloaded file
     cmd = [f"{command}"]
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    process1 = subprocess.Popen(
+        ["npx", "-y", "prettier@3.4.2", "README.md"],
+        stdout=subprocess.PIPE,
+        text=True
+    )
+    
+    # Second command: sha256sum
+    process2 = subprocess.Popen(
+        ["sha256sum"],
+        stdin=process1.stdout,
+        stdout=subprocess.PIPE,
+        text=True
+    )
+    
+    # Allow process1 to receive a SIGPIPE if process2 exits
+    process1.stdout.close()
+    
+    # Get the output
+    output = process2.communicate()[0]
+    # result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     os.chdir(PWD)
     # Print the output of the command
-    return f'''{result.stdout[:-4]}'''
+    return f'''{output[:-4]}'''
 
 def solver_4(formula: str):
     import os

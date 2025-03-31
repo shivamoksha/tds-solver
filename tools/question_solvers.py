@@ -1,8 +1,8 @@
 import os
 import httpx
 import tempfile
-
-
+import requests
+import json
 
 def solver_1(command: str):
     return '''Version:          Code 1.96.2 (fabdb6a30b49f79a7aba0f2ad9df9b399473380f, 2024-12-19T10:22:47.216Z)
@@ -43,15 +43,12 @@ CPU %	Mem MB	   PID	Process
 
 
 def solver_2(url: str, param: str, value: str):
-    import subprocess
-    import json
-
-    # Run the command using uv run with httpie
-    cmd = ["uv", "run", "--with", "httpie", "--", "https", f"{url}", f"{param}=={value}"]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-
-    # Print the JSON output
-    return f'''{json.dumps(json.loads(result.stdout), indent=2)}'''
+    try:
+        response = requests.get(url, params={param:value})
+        response.raise_for_status()
+        return f'''{json.dumps(response.json(), indent=2)}'''
+    except requests.exceptions.RequestException as e:
+        return f"Error: {str(e)}"
 
 
 def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, command: str):
@@ -78,7 +75,6 @@ def solver_3(req_filename: str, temp_dir: str, file_path: str, file_name: str, c
         text=True
     )
     
-    # Second command: sha256sum
     process2 = subprocess.Popen(
         ["sha256sum"],
         stdin=process1.stdout,
@@ -797,7 +793,10 @@ def solver_27(temp_dir: str, file_path: str, file_name: str):
     os.chdir('server-utils')
     with open('q-fastapi.csv', 'w') as f:
         f.write(code)
-    subprocess.Popen(["nohup", "uvicorn", "solver_27:app", "--host", "0.0.0.0", "--port", "8003", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.Popen(["nohup", "uvicorn", "solver_27:app", "--host", "0.0.0.0", "--port", "8003", "--reload"],
+        stdout=open("output_solver27.log", "w"),
+        stderr=subprocess.STDOUT,
+        preexec_fn=os.setpgrp)
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
@@ -967,7 +966,12 @@ def solver_35():
     import requests
     PWD = os.getcwd()
     os.chdir('server-utils')
-    subprocess.Popen(["nohup", "uvicorn", "solver_35:app", "--host", "0.0.0.0", "--port", "8000", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    process = subprocess.Popen(
+        ["nohup", "uvicorn", "solver_35:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+        stdout=open("output_solver35.log", "w"),
+        stderr=subprocess.STDOUT,
+        preexec_fn=os.setpgrp  # Ensures the process does not become a zombie
+    )
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
@@ -979,7 +983,12 @@ def solver_36():
     import requests
     PWD = os.getcwd()
     os.chdir('server-utils')
-    subprocess.Popen(["nohup", "uvicorn", "solver_36:app", "--host", "0.0.0.0", "--port", "8001", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    process = subprocess.Popen(
+        ["nohup", "uvicorn", "solver_36:app", "--host", "0.0.0.0", "--port", "8001", "--reload"],
+        stdout=open("output_solver36.log", "w"),
+        stderr=subprocess.STDOUT,
+        preexec_fn=os.setpgrp  # Ensures the process does not become a zombie
+    )
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
@@ -1151,7 +1160,12 @@ def solver_39():
     import requests
     PWD = os.getcwd()
     os.chdir('server-utils')
-    subprocess.Popen(["nohup", "uvicorn", "solver_39:app", "--host", "0.0.0.0", "--port", "8002", "--reload"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    process = subprocess.Popen(
+        ["nohup", "uvicorn", "solver_39:app", "--host", "0.0.0.0", "--port", "8002", "--reload"],
+        stdout=open("output_solver39.log", "w"),
+        stderr=subprocess.STDOUT,
+        preexec_fn=os.setpgrp  # Ensures the process does not become a zombie
+    )
     response = requests.get("https://api.ipify.org?format=json")
     public_ip = response.json()["ip"]
     os.chdir(PWD)
@@ -1722,7 +1736,7 @@ def solver_51(temp_dir: str, file_path: str, file_name: str, product_sold: str, 
     import pandas as pd
     import jellyfish
     from unidecode import unidecode
-    
+
     target_product = product_sold
     min_sales = no_of_products_sold_atleast
     target_city = city_name

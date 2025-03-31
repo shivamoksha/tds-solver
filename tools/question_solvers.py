@@ -353,7 +353,7 @@ def solver_13(file_name: str, value: str):
     # # Push the changes
     # subprocess.run(["git", "push"], check=True)
     # os.chdir(PWD)
-    return f"https://raw.githubusercontent.com/trebhuvanSB/TDS/refs/heads/main/email.json"
+    return f"https://raw.githubusercontent.com/shivamoksha/tdsque/refs/heads/main/email.json"
 
 def solver_14(temp_dir: str, file_path: str, file_name: str, existing_word: str, new_word: str, command: str):
     import tempfile
@@ -698,7 +698,7 @@ def solver_21(email_id: str):
 #     # Push the changes
 #     subprocess.run(["git", "push"], check=True)
 #     os.chdir(PWD)
-    return f"https://trebhuvansb.github.io/"
+    return f"https://shivamoksha.github.io/skills-github-pages2/"
 
 
 def solver_22(email_id: str):
@@ -775,7 +775,7 @@ def solver_25(email: str):
 #     # Push the changes
 #     subprocess.run(["git", "push"], check=True)
 #     os.chdir(PWD)
-    return f'''https://github.com/trebhuvanSB/actions_TDSWeek2'''
+    return f'''https://github.com/shivamoksha/actions_TDSWeek2'''
     
 
 

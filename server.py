@@ -273,7 +273,7 @@ def extract_parameters(matched_ques_id, question):
                 "model": "gpt-4o-mini",
                 "messages": [
                     {
-                        "role": "user", 
+                        "role": "user",
                         "content": f"""{question}"""
                     }
                     ],
@@ -286,16 +286,16 @@ def extract_parameters(matched_ques_id, question):
         output = response.json()["choices"][0]["message"]
         res = {"name": output["tool_calls"][0]["function"]["name"] , "arguments": output["tool_calls"][0]["function"]["arguments"]}
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
    
     fn = eval(res["name"])
     arguments = json.loads(res["arguments"])
-
+    if matched_ques_id == 12:
+        match = re.search(r"matches\s+(\S+)\s+OR\s+(\S+)\s+OR\s+(\S+)", question)
+        if match:
+            for i in range(len(match.groups())):
+                arguments[f'symbol_{i+1}'] = match.groups()[i]
     return arguments
-
-
-
-    
 
 
 

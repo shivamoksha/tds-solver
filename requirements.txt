@@ -114,7 +114,7 @@ tabula-py==2.10.0
 tenacity==9.0.0
 threadpoolctl==3.6.0
 tokenizers==0.21.1
-torch==2.6.0
+
 tqdm==4.67.1
 transformers==4.49.0
 typer==0.15.2
